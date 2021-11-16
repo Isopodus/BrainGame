@@ -12,6 +12,10 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		2BDD9DDD389045B096FE899E /* MuktaBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C62CF853503F45388CAD8536 /* MuktaBold.ttf */; };
+		98BFBBE65A8A4236AB8F333C /* MuktaRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75C4BCC56B874539A994F4E5 /* MuktaRegular.ttf */; };
+		872830A70D544837B1250E5C /* MuktaSemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A99EE771EB064B3CA65C4BE0 /* MuktaSemiBold.ttf */; };
+		7613BD8D4B554B57A5A28DB8 /* SquidsGameRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 434D7D4C774945579FE56951 /* SquidsGameRegular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +40,10 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BrainGame/main.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BrainGame/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		C62CF853503F45388CAD8536 /* MuktaBold.ttf */ = {isa = PBXFileReference; name = "MuktaBold.ttf"; path = "../src/assets/fonts/MuktaBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		75C4BCC56B874539A994F4E5 /* MuktaRegular.ttf */ = {isa = PBXFileReference; name = "MuktaRegular.ttf"; path = "../src/assets/fonts/MuktaRegular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A99EE771EB064B3CA65C4BE0 /* MuktaSemiBold.ttf */ = {isa = PBXFileReference; name = "MuktaSemiBold.ttf"; path = "../src/assets/fonts/MuktaSemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		434D7D4C774945579FE56951 /* SquidsGameRegular.otf */ = {isa = PBXFileReference; name = "SquidsGameRegular.otf"; path = "../src/assets/fonts/SquidsGameRegular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +117,7 @@
 				00E356EF1AD99517003FC87E /* BrainGameTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				2137666FEBEE48ACAEA8E133 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -123,6 +132,18 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		2137666FEBEE48ACAEA8E133 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				C62CF853503F45388CAD8536 /* MuktaBold.ttf */,
+				75C4BCC56B874539A994F4E5 /* MuktaRegular.ttf */,
+				A99EE771EB064B3CA65C4BE0 /* MuktaSemiBold.ttf */,
+				434D7D4C774945579FE56951 /* SquidsGameRegular.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -214,6 +235,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				2BDD9DDD389045B096FE899E /* MuktaBold.ttf in Resources */,
+				98BFBBE65A8A4236AB8F333C /* MuktaRegular.ttf in Resources */,
+				872830A70D544837B1250E5C /* MuktaSemiBold.ttf in Resources */,
+				7613BD8D4B554B57A5A28DB8 /* SquidsGameRegular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
