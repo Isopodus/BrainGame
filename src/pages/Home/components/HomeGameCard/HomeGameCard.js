@@ -5,14 +5,14 @@ import { styles } from "./HomeGameCard.styles";
 import { RowLayout } from "../../../../library/Layouts/RowLayout";
 import { VerticalLayout } from "../../../../library/Layouts/VerticalLayout";
 import { Button } from "../../../../library/Atoms/Button";
-import { Triangle } from "../Triangle";
+import { HomeShapeCircle } from "./HomeShapes/HomeShapeCircle";
 
 export const HomeGameCard = ({ title, reverse = false }) => {
   const stylesWithTheme = useStylesWithTheme(styles);
   return (
     <RowLayout style={[stylesWithTheme.container, reverse && { flexDirection: "row-reverse" }]}>
       <VerticalLayout style={[stylesWithTheme.figure, { alignItems: reverse ? "flex-end" : "flex-start" }]}>
-        <Triangle />
+        <HomeShapeCircle />
       </VerticalLayout>
       <VerticalLayout style={stylesWithTheme.content}>
         <Text style={stylesWithTheme.title}>{title}</Text>
