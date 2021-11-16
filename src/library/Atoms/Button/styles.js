@@ -1,8 +1,8 @@
-import { scale, fullWidth } from "../../../ui/size";
+import { scale } from "../../../ui/size";
 
 export const styles = ({ colors, fonts }) => ({
   button: {
-    width: fullWidth - scale(150),
+    minWidth: scale(200),
     display: "flex",
     paddingVertical: scale(15),
 

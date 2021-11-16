@@ -9,12 +9,12 @@ export const PreviewHeader = () => {
   const stylesWithTheme = useStylesWithTheme(styles);
   return (
     <VerticalLayout style={stylesWithTheme.container}>
-      <VerticalLayout style={stylesWithTheme.textBlock}>
+      <VerticalLayout>
         <Text style={stylesWithTheme.subtitle}>Welcome to</Text>
         <Text style={[stylesWithTheme.title, stylesWithTheme.leftText]}>Brain</Text>
         <Text style={[stylesWithTheme.title, stylesWithTheme.rightText]}>Game</Text>
       </VerticalLayout>
-      <Button title={"Start game"} />
+      <Button title={"Start game"} style={stylesWithTheme.button} />
     </VerticalLayout>
   );
 };

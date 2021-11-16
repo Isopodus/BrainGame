@@ -2,14 +2,15 @@ import { fullWidth, scale } from "../../../../ui/size";
 
 export const styles = ({ colors, fonts }) => ({
   container: {
-    marginTop: scale(15),
+    flex: 1,
+    display: "flex",
+    justifyContent: "space-between",
+    paddingTop: scale(15),
+    paddingBottom: scale(70),
   },
   logo: {
     width: scale(110),
     height: scale(40),
-  },
-  textBlock: {
-    paddingBottom: scale(50),
   },
   subtitle: {
     paddingBottom: scale(20),
@@ -36,5 +37,8 @@ export const styles = ({ colors, fonts }) => ({
     marginTop: scale(-15),
 
     textAlign: "center",
+  },
+  button: {
+    width: fullWidth - scale(100),
   },
 });
