@@ -25,8 +25,22 @@ export const styles = {
   cellText: {
     fontSize: 20,
   },
-  timer: {
+  headerText: {
+    fontSize: 48,
+    textAlign: "center",
+    marginTop: scale(10),
+  },
+  explanationText: {
+    fontSize: 18,
+    padding: scale(10),
+    textAlign: "center",
+  },
+  timerText: {
     fontSize: 130,
+    textAlign: "center",
+  },
+  mistakesText: {
+    fontSize: 20,
     textAlign: "center",
   },
 };

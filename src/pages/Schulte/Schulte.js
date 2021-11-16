@@ -13,10 +13,14 @@ export const Schulte = () => {
   const [currentNumberIdx, setCurrentNumberIdx] = useState(0);
   const [startTime, setStartTime] = useState();
   const [timeLeft, setTimeLeft] = useState(GAME_TIME_MS);
-  const [stupid, setStupid] = useState(0);
+  const [mistakesCount, setMistakesCount] = useState(0);
   const interval = useRef();
 
   useEffect(() => {
+    generageGame();
+  }, []);
+
+  const generageGame = useCallback(() => {
     // Generate a sequence of numbers
     const nums = [...Array(SQUARE_SIZE * SQUARE_SIZE).keys()].map(value => value + 1);
     setValidSequence([...nums]);
@@ -24,7 +28,7 @@ export const Schulte = () => {
     // Shuffle them all!
     nums.sort(() => Math.random() - 0.5);
     setSequence(nums);
-  }, []);
+  });
 
   useEffect(() => {
     if (isGameStarted && timeLeft === GAME_TIME_MS) {
@@ -39,11 +43,28 @@ export const Schulte = () => {
   }, [isGameStarted, interval]);
 
   useEffect(() => {
-    if (timeLeft < 0) {
+    if (timeLeft <= 0) {
       Vibration.vibrate(1000);
       clearInterval(interval.current);
+
+      // ------------------------------------------------------- TODO: Do the post-game LOOSE message
     }
   }, [timeLeft]);
+
+  useEffect(() => {
+    if (mistakesCount >= 3) {
+      setTimeLeft(0);
+    }
+  }, [mistakesCount]);
+
+  useEffect(() => {
+    if (currentNumberIdx >= SQUARE_SIZE * SQUARE_SIZE) {
+      clearInterval(interval.current);
+      Vibration.vibrate([0, 50, 50, 50, 50, 200]);
+
+      // ------------------------------------------------------- TODO: Do the post-game WIN message
+    }
+  }, [currentNumberIdx]);
 
   const onCellPress = number => {
     // Start the game if needed
@@ -57,6 +78,7 @@ export const Schulte = () => {
       setCurrentNumberIdx(currentNumberIdx + 1);
     } else {
       Vibration.vibrate(100);
+      setMistakesCount(mistakesCount + 1);
     }
   };
 
@@ -64,11 +86,13 @@ export const Schulte = () => {
 
   return (
     <PageLayout>
-      <Text>
-        Press the buttons in the valid order until the time is up. You are allowed to make 3 mistakes before you loose. The timer
-        starts as you press on the first number.
+      <Text style={styles.headerText}>Schulte table</Text>
+      <Text style={styles.explanationText}>
+        Press the buttons in the valid order until the time is up. You are allowed to have 3 mistakes before you loose. The timer
+        starts as you press on any number.
       </Text>
-      <Text style={styles.timer}>{timeLeft < 0 ? (0).toFixed(2) : (timeLeft / 1000).toFixed(2)}</Text>
+      <Text style={styles.timerText}>{timeLeft < 0 ? (0).toFixed(2) : (timeLeft / 1000).toFixed(2)}</Text>
+      <Text style={styles.mistakesText}>Mistakes: {mistakesCount}</Text>
       <View style={styles.container}>
         {range.map((_, rowIdx) => (
           <View key={rowIdx} style={styles.row}>
