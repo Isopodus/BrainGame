@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { View, Text, TouchableHighlight, Vibration } from "react-native";
 import { PageLayout } from "../../library/Layouts/PageLayout";
 import { styles } from "./Schulte.styles";
@@ -13,6 +13,8 @@ export const Schulte = () => {
   const [currentNumberIdx, setCurrentNumberIdx] = useState(0);
   const [startTime, setStartTime] = useState();
   const [timeLeft, setTimeLeft] = useState(GAME_TIME_MS);
+  const [stupid, setStupid] = useState(0);
+  const interval = useRef();
 
   useEffect(() => {
     // Generate a sequence of numbers
@@ -25,23 +27,23 @@ export const Schulte = () => {
   }, []);
 
   useEffect(() => {
-    if (isGameStarted && timeLeft > 0) {
+    if (isGameStarted && timeLeft === GAME_TIME_MS) {
       // Launch a countdown timer
-      const interval = setInterval(() => {
+      interval.current = setInterval(() => {
         const currentTime = new Date().valueOf();
-
         setTimeLeft(startTime + GAME_TIME_MS - currentTime);
-
-        if (timeLeft <= 0) {
-          console.log("hello there");
-          Vibration.vibrate(1000);
-          clearInterval(interval);
-        }
       }, 100);
-
-      return () => clearInterval(interval);
     }
-  }, [isGameStarted, timeLeft]);
+
+    return () => clearInterval(interval.current);
+  }, [isGameStarted, interval]);
+
+  useEffect(() => {
+    if (timeLeft < 0) {
+      Vibration.vibrate(1000);
+      clearInterval(interval.current);
+    }
+  }, [timeLeft]);
 
   const onCellPress = number => {
     // Start the game if needed
