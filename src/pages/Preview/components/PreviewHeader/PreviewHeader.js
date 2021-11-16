@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import { styles } from "./PreviewHeader.styles";
 import { VerticalLayout } from "../../../../library/Layouts/VerticalLayout";
 import { useStylesWithTheme } from "../../../../hooks/useStylesWithTheme";
