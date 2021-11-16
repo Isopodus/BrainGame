@@ -30,12 +30,12 @@ export const styles = ({ colors, fonts }) => ({
     display: "flex",
 
     fontFamily: fonts.tematic,
-    fontSize: scale(35),
-    lineHeight: scale(48),
+    fontSize: scale(29),
+    lineHeight: scale(44),
     textAlign: "center",
     color: colors.white,
   },
   button: {
-    width: scale(200),
+    width: scale(180),
   },
 });
