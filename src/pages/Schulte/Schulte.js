@@ -10,24 +10,34 @@ export const Schulte = () => {
   const [isGameStarted, setGameStarted] = useState(false);
   const [sequence, setSequence] = useState([]);
   const [validSequence, setValidSequence] = useState([]);
-  const [currentNumberIdx, setCurrentNumberIdx] = useState(0);
+  const [currentItemIdx, setCurrentItemIdx] = useState(0);
   const [startTime, setStartTime] = useState();
   const [timeLeft, setTimeLeft] = useState(GAME_TIME_MS);
   const [mistakesCount, setMistakesCount] = useState(0);
   const interval = useRef();
 
   useEffect(() => {
-    generageGame();
+    generageGame(false);
   }, []);
 
-  const generageGame = useCallback(() => {
-    // Generate a sequence of numbers
-    const nums = [...Array(SQUARE_SIZE * SQUARE_SIZE).keys()].map(value => value + 1);
-    setValidSequence([...nums]);
+  const generageGame = useCallback(generateLetters => {
+    let items;
+    if (generateLetters) {
+      // Generate a sequence of letters
+      items = Array(SQUARE_SIZE * SQUARE_SIZE)
+        .fill(0)
+        .map((_, i) => String.fromCharCode("A".charCodeAt(0) + i));
+    } else {
+      // Generate a sequence of numbers
+      items = [...Array(SQUARE_SIZE * SQUARE_SIZE).keys()].map(value => value + 1);
+    }
+
+    // Save the valid sequence
+    setValidSequence([...items]);
 
     // Shuffle them all!
-    nums.sort(() => Math.random() - 0.5);
-    setSequence(nums);
+    items.sort(() => Math.random() - 0.5);
+    setSequence(items);
   });
 
   useEffect(() => {
@@ -58,13 +68,13 @@ export const Schulte = () => {
   }, [mistakesCount]);
 
   useEffect(() => {
-    if (currentNumberIdx >= SQUARE_SIZE * SQUARE_SIZE) {
+    if (currentItemIdx >= SQUARE_SIZE * SQUARE_SIZE) {
       clearInterval(interval.current);
       Vibration.vibrate([0, 50, 50, 50, 50, 200]);
 
       // ------------------------------------------------------- TODO: Do the post-game WIN message
     }
-  }, [currentNumberIdx]);
+  }, [currentItemIdx]);
 
   const onCellPress = number => {
     // Start the game if needed
@@ -74,8 +84,8 @@ export const Schulte = () => {
     }
 
     // Check if the pressed number is valid
-    if (number === validSequence[currentNumberIdx]) {
-      setCurrentNumberIdx(currentNumberIdx + 1);
+    if (number === validSequence[currentItemIdx]) {
+      setCurrentItemIdx(currentItemIdx + 1);
     } else {
       Vibration.vibrate(100);
       setMistakesCount(mistakesCount + 1);
@@ -98,7 +108,7 @@ export const Schulte = () => {
           <View key={rowIdx} style={styles.row}>
             {range.map((_, colIdx) => {
               const numIdx = colIdx + SQUARE_SIZE * rowIdx;
-              const isValid = validSequence[currentNumberIdx] > sequence[numIdx] || currentNumberIdx >= SQUARE_SIZE * SQUARE_SIZE;
+              const isValid = validSequence[currentItemIdx] > sequence[numIdx] || currentItemIdx >= SQUARE_SIZE * SQUARE_SIZE;
               return (
                 <TouchableHighlight key={colIdx} activeOpacity={0.7} onPress={() => onCellPress(sequence[numIdx])}>
                   <View style={{ ...styles.cell, ...(isValid ? styles.validCell : {}) }}>
