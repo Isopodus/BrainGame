@@ -3,7 +3,7 @@ import { scale } from "../../../../ui/size";
 export const styles = ({ colors, fonts }) => ({
   container: {
     flex: 1,
-    maxHeight: scale(200),
+    maxHeight: scale(180),
     alignItems: "stretch",
     justifyContent: "space-between",
     paddingHorizontal: scale(20),
@@ -12,36 +12,30 @@ export const styles = ({ colors, fonts }) => ({
     flex: 1,
   },
   circle: {
-    width: scale(200),
-    height: scale(200),
+    width: scale(180),
+    height: scale(180),
 
     backgroundColor: colors.pink,
 
-    borderRadius: scale(200) / 2,
-    borderWidth: scale(3),
-    borderColor: colors.white,
-    borderStyle: "solid",
-  },
-  square: {
-    width: scale(200),
-    height: scale(200),
-
-    backgroundColor: colors.pink,
-
+    borderRadius: scale(180) / 2,
     borderWidth: scale(3),
     borderColor: colors.white,
     borderStyle: "solid",
   },
   content: {
     justifyContent: "space-between",
-    alignItems: "flex-start",
     flex: 1,
   },
   title: {
     display: "flex",
+
     fontFamily: fonts.tematic,
-    fontSize: scale(40),
+    fontSize: scale(35),
     lineHeight: scale(48),
+    textAlign: "center",
     color: colors.white,
+  },
+  button: {
+    width: scale(200),
   },
 });

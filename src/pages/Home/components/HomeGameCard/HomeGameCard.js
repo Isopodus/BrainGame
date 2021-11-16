@@ -10,12 +10,12 @@ export const HomeGameCard = ({ title, reverse = false }) => {
   const stylesWithTheme = useStylesWithTheme(styles);
   return (
     <RowLayout style={[stylesWithTheme.container, reverse && { flexDirection: "row-reverse" }]}>
-      <View style={stylesWithTheme.figure}>
+      <VerticalLayout style={[stylesWithTheme.figure, { alignItems: reverse ? "flex-end" : "flex-start" }]}>
         <View style={stylesWithTheme.circle} />
-      </View>
+      </VerticalLayout>
       <VerticalLayout style={stylesWithTheme.content}>
         <Text style={stylesWithTheme.title}>{title}</Text>
-        <Button title="Start" />
+        <Button title="Start" style={stylesWithTheme.button} />
       </VerticalLayout>
     </RowLayout>
   );
