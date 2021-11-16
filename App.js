@@ -1,8 +1,8 @@
 import React from "react";
-import { Preview } from "./src/pages/Preview/Preview";
+import { Schulte } from "./src/pages/Schulte/Schulte";
 
 const App = () => {
-  return <Preview />;
+  return <Schulte />;
 };
 
 export default App;
