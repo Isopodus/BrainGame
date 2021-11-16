@@ -1,18 +1,20 @@
 import React from "react";
-import { ImageBackground, Text } from "react-native";
+import { View, Text } from "react-native";
 import { styles } from "./PreviewHeader.styles";
 import { VerticalLayout } from "../../../../library/Layouts/VerticalLayout";
-import { useTheme } from "react-native-paper";
+import { useStylesWithTheme } from "../../../../hooks/useStylesWithTheme";
+import { Button } from "../../../../library/Atoms/Button";
 
 export const PreviewHeader = () => {
-  const { colors, fonts } = useTheme();
+  const stylesWithTheme = useStylesWithTheme(styles);
   return (
-    <VerticalLayout style={styles.container}>
-      <ImageBackground
-        style={styles.logo}
-        source={require("../../../../assets/images/logo.png")}
-        resizeMode={"contain"}
-      />
+    <VerticalLayout style={stylesWithTheme.container}>
+      <VerticalLayout style={stylesWithTheme.textBlock}>
+        <Text style={stylesWithTheme.subtitle}>Welcome to</Text>
+        <Text style={[stylesWithTheme.title, stylesWithTheme.leftText]}>Brain</Text>
+        <Text style={[stylesWithTheme.title, stylesWithTheme.rightText]}>Game</Text>
+      </VerticalLayout>
+      <Button title={"Start game"} />
     </VerticalLayout>
   );
 };
