@@ -11,11 +11,13 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		2BDD9DDD389045B096FE899E /* MuktaBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C62CF853503F45388CAD8536 /* MuktaBold.ttf */; };
-		98BFBBE65A8A4236AB8F333C /* MuktaRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75C4BCC56B874539A994F4E5 /* MuktaRegular.ttf */; };
-		872830A70D544837B1250E5C /* MuktaSemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A99EE771EB064B3CA65C4BE0 /* MuktaSemiBold.ttf */; };
 		7613BD8D4B554B57A5A28DB8 /* SquidsGameRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 434D7D4C774945579FE56951 /* SquidsGameRegular.otf */; };
+		812526B2DAE14AAD977418B9 /* UbuntuBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A3E3DAC2A9FB4C51B0D6EFF1 /* UbuntuBold.otf */; };
+		C963102F7C3A4B2AA7566222 /* UbuntuBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD2204DCC846128BF0BD2C /* UbuntuBoldItalic.otf */; };
+		C67E3DD2C30E49EA9FBC3EFA /* UbuntuMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2DEBEE020BBE4AC39323BF4B /* UbuntuMedium.otf */; };
+		46427CEC0E4E47C9A23879A1 /* UbuntuMediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFD9CD8400E643159F5FA405 /* UbuntuMediumItalic.otf */; };
+		2BD176EA7895470A8F6611CE /* UbuntuRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8DC6C5C842CF42519B9A399A /* UbuntuRegular.otf */; };
+		0C2A56B8AC99434BAC8F39FE /* UbuntuRegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3D0BF7AE092C4710B3BD765A /* UbuntuRegularItalic.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,10 +42,13 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BrainGame/main.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BrainGame/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		C62CF853503F45388CAD8536 /* MuktaBold.ttf */ = {isa = PBXFileReference; name = "MuktaBold.ttf"; path = "../src/assets/fonts/MuktaBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		75C4BCC56B874539A994F4E5 /* MuktaRegular.ttf */ = {isa = PBXFileReference; name = "MuktaRegular.ttf"; path = "../src/assets/fonts/MuktaRegular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A99EE771EB064B3CA65C4BE0 /* MuktaSemiBold.ttf */ = {isa = PBXFileReference; name = "MuktaSemiBold.ttf"; path = "../src/assets/fonts/MuktaSemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		434D7D4C774945579FE56951 /* SquidsGameRegular.otf */ = {isa = PBXFileReference; name = "SquidsGameRegular.otf"; path = "../src/assets/fonts/SquidsGameRegular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A3E3DAC2A9FB4C51B0D6EFF1 /* UbuntuBold.otf */ = {isa = PBXFileReference; name = "UbuntuBold.otf"; path = "../src/assets/fonts/UbuntuBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2CCD2204DCC846128BF0BD2C /* UbuntuBoldItalic.otf */ = {isa = PBXFileReference; name = "UbuntuBoldItalic.otf"; path = "../src/assets/fonts/UbuntuBoldItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2DEBEE020BBE4AC39323BF4B /* UbuntuMedium.otf */ = {isa = PBXFileReference; name = "UbuntuMedium.otf"; path = "../src/assets/fonts/UbuntuMedium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CFD9CD8400E643159F5FA405 /* UbuntuMediumItalic.otf */ = {isa = PBXFileReference; name = "UbuntuMediumItalic.otf"; path = "../src/assets/fonts/UbuntuMediumItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8DC6C5C842CF42519B9A399A /* UbuntuRegular.otf */ = {isa = PBXFileReference; name = "UbuntuRegular.otf"; path = "../src/assets/fonts/UbuntuRegular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3D0BF7AE092C4710B3BD765A /* UbuntuRegularItalic.otf */ = {isa = PBXFileReference; name = "UbuntuRegularItalic.otf"; path = "../src/assets/fonts/UbuntuRegularItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,10 +141,13 @@
 		2137666FEBEE48ACAEA8E133 /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
-				C62CF853503F45388CAD8536 /* MuktaBold.ttf */,
-				75C4BCC56B874539A994F4E5 /* MuktaRegular.ttf */,
-				A99EE771EB064B3CA65C4BE0 /* MuktaSemiBold.ttf */,
 				434D7D4C774945579FE56951 /* SquidsGameRegular.otf */,
+				A3E3DAC2A9FB4C51B0D6EFF1 /* UbuntuBold.otf */,
+				2CCD2204DCC846128BF0BD2C /* UbuntuBoldItalic.otf */,
+				2DEBEE020BBE4AC39323BF4B /* UbuntuMedium.otf */,
+				CFD9CD8400E643159F5FA405 /* UbuntuMediumItalic.otf */,
+				8DC6C5C842CF42519B9A399A /* UbuntuRegular.otf */,
+				3D0BF7AE092C4710B3BD765A /* UbuntuRegularItalic.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -235,10 +243,13 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				2BDD9DDD389045B096FE899E /* MuktaBold.ttf in Resources */,
-				98BFBBE65A8A4236AB8F333C /* MuktaRegular.ttf in Resources */,
-				872830A70D544837B1250E5C /* MuktaSemiBold.ttf in Resources */,
 				7613BD8D4B554B57A5A28DB8 /* SquidsGameRegular.otf in Resources */,
+				812526B2DAE14AAD977418B9 /* UbuntuBold.otf in Resources */,
+				C963102F7C3A4B2AA7566222 /* UbuntuBoldItalic.otf in Resources */,
+				C67E3DD2C30E49EA9FBC3EFA /* UbuntuMedium.otf in Resources */,
+				46427CEC0E4E47C9A23879A1 /* UbuntuMediumItalic.otf in Resources */,
+				2BD176EA7895470A8F6611CE /* UbuntuRegular.otf in Resources */,
+				0C2A56B8AC99434BAC8F39FE /* UbuntuRegularItalic.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

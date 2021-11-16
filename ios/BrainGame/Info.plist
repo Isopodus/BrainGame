@@ -53,10 +53,13 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>MuktaBold.ttf</string>
-		<string>MuktaRegular.ttf</string>
-		<string>MuktaSemiBold.ttf</string>
 		<string>SquidsGameRegular.otf</string>
+		<string>UbuntuBold.otf</string>
+		<string>UbuntuBoldItalic.otf</string>
+		<string>UbuntuMedium.otf</string>
+		<string>UbuntuMediumItalic.otf</string>
+		<string>UbuntuRegular.otf</string>
+		<string>UbuntuRegularItalic.otf</string>
 	</array>
 </dict>
 </plist>

@@ -1,8 +1,11 @@
 const fontConfig = {
-  decorative: "SquidsGameRegular",
-  primary: "MuktaBold",
-  secondary: "MuktaSemiBold",
-  regular: "MuktaRegular",
+  tematic: "SquidsGameRegular",
+  primary: "UbuntuBold",
+  primaryItalic: "UbuntuBoldItalic",
+  secondary: "UbuntuMedium",
+  secondaryItalic: "UbuntuMediumItalic",
+  regular: "UbuntuRegular",
+  regularItalic: "UbuntuRegularItalic",
 };
 
 export const fonts = {
