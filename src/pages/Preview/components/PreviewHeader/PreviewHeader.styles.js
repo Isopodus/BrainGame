@@ -1,44 +1,42 @@
-import { fullWidth, scale } from "../../../../ui/size";
-
-export const styles = ({ colors, fonts }) => ({
+export const styles = ({ colors, fonts, sizes }) => ({
   container: {
     flex: 1,
     display: "flex",
     justifyContent: "space-between",
-    paddingTop: scale(15),
-    paddingBottom: scale(70),
+    paddingTop: sizes.scale(15),
+    paddingBottom: sizes.scale(70),
   },
   logo: {
-    width: scale(110),
-    height: scale(40),
+    width: sizes.scale(110),
+    height: sizes.scale(40),
   },
   subtitle: {
-    paddingBottom: scale(20),
+    paddingBottom: sizes.scale(20),
 
     fontFamily: fonts.primary,
-    fontSize: scale(23),
+    fontSize: sizes.scale(23),
     color: colors.pink,
     textTransform: "uppercase",
   },
   title: {
     fontFamily: fonts.tematic,
-    fontSize: scale(70),
+    fontSize: sizes.scale(70),
     color: colors.white,
   },
   leftText: {
-    width: fullWidth,
-    marginLeft: -(fullWidth / 5),
+    width: sizes.fullWidth,
+    marginLeft: -(sizes.fullWidth / 5),
 
     textAlign: "center",
   },
   rightText: {
-    width: fullWidth,
-    marginRight: -(fullWidth / 5),
-    marginTop: scale(-15),
+    width: sizes.fullWidth,
+    marginRight: -(sizes.fullWidth / 5),
+    marginTop: sizes.scale(-15),
 
     textAlign: "center",
   },
   button: {
-    width: fullWidth - scale(100),
+    width: sizes.fullWidth - sizes.scale(100),
   },
 });

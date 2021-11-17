@@ -1,19 +1,17 @@
-import { scale } from "../../../ui/size";
-
-export const styles = ({ colors, fonts }) => ({
+export const styles = ({ colors, fonts, sizes }) => ({
   button: {
     display: "flex",
-    paddingVertical: scale(15),
+    paddingVertical: sizes.scale(15),
 
     backgroundColor: colors.pink,
 
-    borderWidth: scale(3),
+    borderWidth: sizes.scale(3),
     borderColor: colors.white,
     borderStyle: "solid",
   },
   title: {
     fontFamily: fonts.primary,
-    fontSize: scale(20),
+    fontSize: sizes.scale(20),
     color: colors.white,
     textAlign: "center",
     textTransform: "uppercase",

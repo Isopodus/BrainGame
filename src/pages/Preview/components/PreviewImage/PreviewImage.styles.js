@@ -1,9 +1,7 @@
-import { scale } from "../../../../ui/size";
-
-export const styles = {
+export const styles = ({ sizes }) => ({
   image: {
     display: "flex",
     flex: 1,
-    height: scale(400),
+    height: sizes.scale(400),
   },
-};
+});

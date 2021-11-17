@@ -1,13 +1,11 @@
-import { scale } from "../../../../ui/size";
-
-export const styles = ({ colors, fonts }) => ({
+export const styles = ({ colors, fonts, sizes }) => ({
   container: {
     flex: 1,
-    maxHeight: scale(180),
+    maxHeight: sizes.scale(180),
     alignItems: "stretch",
     justifyContent: "space-between",
     paddingHorizontal: "0.5%",
-    marginBottom: scale(80),
+    marginBottom: sizes.scale(80),
   },
   figure: {
     flex: 1,
@@ -20,8 +18,8 @@ export const styles = ({ colors, fonts }) => ({
     display: "flex",
 
     fontFamily: fonts.tematic,
-    fontSize: scale(29),
-    lineHeight: scale(44),
+    fontSize: sizes.scale(29),
+    lineHeight: sizes.scale(44),
     textAlign: "center",
     color: colors.white,
   },
