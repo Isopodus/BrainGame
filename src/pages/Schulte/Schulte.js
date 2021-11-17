@@ -1,35 +1,29 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { View, Text, TouchableHighlight, Vibration } from "react-native";
+import { tableGame } from "../../../constants";
+import { useGameTimer } from "../../hooks/useGameTimer";
 import { PageLayout } from "../../library/Layouts/PageLayout";
 import { styles } from "./Schulte.styles";
 
 export const Schulte = () => {
-  const SQUARE_SIZE = 5;
-  const GAME_TIME_MS = 15000;
+  const config = tableGame[1]; // Idx 0 defines level 1 of 3
+  const totalItemsCount = config.SQUARE_SIZE * config.SQUARE_SIZE;
 
-  const [isGameStarted, setGameStarted] = useState(false);
   const [sequence, setSequence] = useState([]);
   const [validSequence, setValidSequence] = useState([]);
   const [currentItemIdx, setCurrentItemIdx] = useState(0);
-  const [startTime, setStartTime] = useState();
-  const [timeLeft, setTimeLeft] = useState(GAME_TIME_MS);
   const [mistakesCount, setMistakesCount] = useState(0);
-  const interval = useRef();
-
-  useEffect(() => {
-    generageGame(false);
-  }, []);
 
   const generageGame = useCallback(generateLetters => {
     let items;
     if (generateLetters) {
       // Generate a sequence of letters
-      items = Array(SQUARE_SIZE * SQUARE_SIZE)
+      items = Array(totalItemsCount)
         .fill(0)
         .map((_, i) => String.fromCharCode("A".charCodeAt(0) + i));
     } else {
       // Generate a sequence of numbers
-      items = [...Array(SQUARE_SIZE * SQUARE_SIZE).keys()].map(value => value + 1);
+      items = [...Array(totalItemsCount).keys()].map(value => value + 1);
     }
 
     // Save the valid sequence
@@ -40,47 +34,42 @@ export const Schulte = () => {
     setSequence(items);
   });
 
+  const handleLoose = useCallback(() => {
+    Vibration.vibrate(1000);
+    // ------------------------------------------------------- TODO: Do the post-game LOOSE message
+  });
+
+  const handleWin = useCallback(() => {
+    Vibration.vibrate([0, 50, 50, 50, 50, 200]);
+
+    // ------------------------------------------------------- TODO: Do the post-game WIN message
+  });
+
+  const [isGameStarted, timeLeft, onStartGame, onSetIsWinner] = useGameTimer(handleWin, handleLoose, config.GAME_TIME_MS);
+
+  // Generate the game on start
   useEffect(() => {
-    if (isGameStarted && timeLeft === GAME_TIME_MS) {
-      // Launch a countdown timer
-      interval.current = setInterval(() => {
-        const currentTime = new Date().valueOf();
-        setTimeLeft(startTime + GAME_TIME_MS - currentTime);
-      }, 100);
-    }
+    generageGame(config.LETTERS_MODE);
+  }, []);
 
-    return () => clearInterval(interval.current);
-  }, [isGameStarted, interval]);
-
+  // Win if all the tiles are presed
   useEffect(() => {
-    if (timeLeft <= 0) {
-      Vibration.vibrate(1000);
-      clearInterval(interval.current);
-
-      // ------------------------------------------------------- TODO: Do the post-game LOOSE message
-    }
-  }, [timeLeft]);
-
-  useEffect(() => {
-    if (mistakesCount >= 3) {
-      setTimeLeft(0);
-    }
-  }, [mistakesCount]);
-
-  useEffect(() => {
-    if (currentItemIdx >= SQUARE_SIZE * SQUARE_SIZE) {
-      clearInterval(interval.current);
-      Vibration.vibrate([0, 50, 50, 50, 50, 200]);
-
-      // ------------------------------------------------------- TODO: Do the post-game WIN message
+    if (currentItemIdx >= totalItemsCount) {
+      onSetIsWinner(true);
     }
   }, [currentItemIdx]);
+
+  // Loose if more than 3 mistakes
+  useEffect(() => {
+    if (mistakesCount >= 3) {
+      onSetIsWinner(false);
+    }
+  }, [mistakesCount]);
 
   const onCellPress = number => {
     // Start the game if needed
     if (!isGameStarted) {
-      setStartTime(new Date().valueOf());
-      setGameStarted(true);
+      onStartGame();
     }
 
     // Check if the pressed number is valid
@@ -92,7 +81,7 @@ export const Schulte = () => {
     }
   };
 
-  const range = Array(SQUARE_SIZE).fill(0);
+  const range = Array(config.SQUARE_SIZE).fill(0);
 
   return (
     <PageLayout>
@@ -107,8 +96,8 @@ export const Schulte = () => {
         {range.map((_, rowIdx) => (
           <View key={rowIdx} style={styles.row}>
             {range.map((_, colIdx) => {
-              const numIdx = colIdx + SQUARE_SIZE * rowIdx;
-              const isValid = validSequence[currentItemIdx] > sequence[numIdx] || currentItemIdx >= SQUARE_SIZE * SQUARE_SIZE;
+              const numIdx = colIdx + config.SQUARE_SIZE * rowIdx;
+              const isValid = validSequence[currentItemIdx] > sequence[numIdx] || currentItemIdx >= totalItemsCount;
               return (
                 <TouchableHighlight key={colIdx} activeOpacity={0.7} onPress={() => onCellPress(sequence[numIdx])}>
                   <View style={{ ...styles.cell, ...(isValid ? styles.validCell : {}) }}>
