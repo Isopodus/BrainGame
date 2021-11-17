@@ -6,7 +6,6 @@ export const styles = {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    border: 1,
   },
   row: {
     flexDirection: "row",

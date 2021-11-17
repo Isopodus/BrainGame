@@ -66,7 +66,7 @@ export const Schulte = () => {
     }
   }, [mistakesCount]);
 
-  const onCellPress = number => {
+  const onCellPress = useCallback(number => {
     // Start the game if needed
     if (!isGameStarted) {
       onStartGame();
@@ -79,7 +79,7 @@ export const Schulte = () => {
       Vibration.vibrate(100);
       setMistakesCount(mistakesCount + 1);
     }
-  };
+  });
 
   const range = Array(config.SQUARE_SIZE).fill(0);
 

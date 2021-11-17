@@ -4,6 +4,7 @@ export function useGameTimer(winCallback, looseCallback, gameTimeMs) {
   const interval = useRef();
   const [isGameStarted, setGameStarted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(gameTimeMs);
+  const [timeReduce, setTimeReduce] = useState(0);
   const [isWinner, setIsWinner] = useState(null);
 
   useEffect(() => {
@@ -23,11 +24,11 @@ export function useGameTimer(winCallback, looseCallback, gameTimeMs) {
 
   // Check if time is up
   useEffect(() => {
-    if (timeLeft <= 0) {
+    if (timeLeft - timeReduce <= 0) {
       clearInterval(interval.current);
       looseCallback();
     }
-  }, [timeLeft]);
+  }, [timeLeft, timeReduce]);
 
   // Check if win state was changed from above and stop the timer, call win/loose callback
   useEffect(() => {
@@ -40,5 +41,11 @@ export function useGameTimer(winCallback, looseCallback, gameTimeMs) {
     }
   }, [isWinner]);
 
-  return [isGameStarted, timeLeft, () => setGameStarted(true), setIsWinner];
+  return [
+    isGameStarted,
+    timeLeft - timeReduce,
+    () => setGameStarted(true),
+    setIsWinner,
+    value => setTimeReduce(timeReduce + value),
+  ];
 }

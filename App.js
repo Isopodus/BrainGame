@@ -1,8 +1,8 @@
 import React from "react";
-import { Schulte } from "./src/pages/Schulte/Schulte";
+import { DrawGame } from "./src/pages/DrawGame/DrawGame";
 
 const App = () => {
-  return <Schulte />;
+  return <DrawGame />;
 };
 
 export default App;
