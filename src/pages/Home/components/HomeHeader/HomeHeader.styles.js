@@ -11,13 +11,16 @@ export const styles = ({ sizes, colors, fonts }) => ({
     zIndex: 1,
   },
   topCircle: {
+    position: "absolute",
     display: "flex",
     flex: 1,
-    position: "absolute",
     left: sizes.scale(-15),
     top: sizes.scale(-25),
     width: sizes.scale(120),
     height: sizes.scale(120),
+    alignItems: "center",
+    justifyContent: "flex-end",
+    paddingBottom: "25%",
 
     backgroundColor: colors.white,
 

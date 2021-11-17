@@ -4,7 +4,7 @@ import { useStylesWithTheme } from "../../../../hooks/useStylesWithTheme";
 import { styles } from "./HomeGameCard.styles";
 import { RowLayout } from "../../../../library/Layouts/RowLayout";
 import { VerticalLayout } from "../../../../library/Layouts/VerticalLayout";
-import { Button } from "../../../../library/Atoms/Button";
+import { PrimaryButton } from "../../../../library/Atoms/Button/PrimaryButton";
 import { HomeShapeCircle } from "./HomeShapes/HomeShapeCircle";
 import { HomeShapeSquare } from "./HomeShapes/HomeShapeSquare";
 import { HomeShapeTriangle } from "./HomeShapes/HomeShapeTriangle";
@@ -30,7 +30,7 @@ export const HomeGameCard = ({ style, title, figure, reverse = false, disabled }
       </VerticalLayout>
       <VerticalLayout style={stylesWithTheme.content}>
         <Text style={stylesWithTheme.title}>{title}</Text>
-        <Button title={disabled ? "Locked" : "Start"} style={stylesWithTheme.button} disabled={disabled} />
+        <PrimaryButton title={disabled ? "Locked" : "Start"} style={stylesWithTheme.button} disabled={disabled} />
       </VerticalLayout>
     </RowLayout>
   );

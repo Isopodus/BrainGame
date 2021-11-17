@@ -14,7 +14,7 @@ export const Home = () => {
 
       <ScrollView>
         <HomeGameCard title={`First${"\n"}game`} figure={"circle"} style={stylesWithTheme.firstCard} />
-        <HomeGameCard title={`Second${"\n"}game`} figure={"triangle"} reverse disabled />
+        <HomeGameCard title={<>SEcond{"\n"}game</>} figure={"triangle"} reverse disabled />
         <HomeGameCard title={`Third${"\n"}game`} disabled />
       </ScrollView>
     </PageLayout>
