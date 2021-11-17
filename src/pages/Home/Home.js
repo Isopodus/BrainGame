@@ -6,9 +6,11 @@ import { HomeGameCard } from "./components/HomeGameCard/HomeGameCard";
 export const Home = () => {
   return (
     <PageLayout>
-      <HomeGameCard title={`First${"\n"}game`} figure={"circle"} />
-      <HomeGameCard title={`Second${"\n"}game`} figure={"triangle"} reverse disabled />
-      <HomeGameCard title={`Third${"\n"}game`} disabled />
+      <ScrollView>
+        <HomeGameCard title={`First${"\n"}game`} figure={"circle"} />
+        <HomeGameCard title={`Second${"\n"}game`} figure={"triangle"} reverse disabled />
+        <HomeGameCard title={`Third${"\n"}game`} disabled />
+      </ScrollView>
     </PageLayout>
   );
 };
