@@ -1,6 +1,4 @@
-import { colors } from "../../../ui/colors";
-
-export const styles = {
+export const styles = ({ colors }) => ({
   layout: {
     display: "flex",
     flex: 1,
@@ -8,4 +6,4 @@ export const styles = {
 
     backgroundColor: colors.blue,
   },
-};
+});
