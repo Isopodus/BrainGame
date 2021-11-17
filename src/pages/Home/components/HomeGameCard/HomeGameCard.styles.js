@@ -6,21 +6,11 @@ export const styles = ({ colors, fonts }) => ({
     maxHeight: scale(180),
     alignItems: "stretch",
     justifyContent: "space-between",
-    paddingHorizontal: scale(20),
+    paddingHorizontal: "0.5%",
+    marginBottom: scale(80),
   },
   figure: {
     flex: 1,
-  },
-  circle: {
-    width: scale(180),
-    height: scale(180),
-
-    backgroundColor: colors.pink,
-
-    borderRadius: scale(180) / 2,
-    borderWidth: scale(3),
-    borderColor: colors.white,
-    borderStyle: "solid",
   },
   content: {
     justifyContent: "space-between",
@@ -36,6 +26,6 @@ export const styles = ({ colors, fonts }) => ({
     color: colors.white,
   },
   button: {
-    width: scale(180),
+    width: "70%",
   },
 });

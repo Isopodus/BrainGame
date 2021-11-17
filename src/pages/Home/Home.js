@@ -1,13 +1,14 @@
 import React from "react";
+import { ScrollView } from "react-native";
 import { PageLayout } from "../../library/Layouts/PageLayout";
 import { HomeGameCard } from "./components/HomeGameCard/HomeGameCard";
 
 export const Home = () => {
   return (
     <PageLayout>
-      <HomeGameCard title={`First${"\n"}game`} />
-      <HomeGameCard title={`Second${"\n"}game`} reverse />
-      <HomeGameCard title={`Third${"\n"}game`} />
+      <HomeGameCard title={`First${"\n"}game`} figure={"circle"} />
+      <HomeGameCard title={`Second${"\n"}game`} figure={"triangle"} reverse disabled />
+      <HomeGameCard title={`Third${"\n"}game`} disabled />
     </PageLayout>
   );
 };

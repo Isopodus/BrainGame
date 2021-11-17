@@ -6,7 +6,7 @@ import { useStylesWithTheme } from "../../../../hooks/useStylesWithTheme";
 import { Button } from "../../../../library/Atoms/Button";
 
 export const PreviewHeader = () => {
-  const stylesWithTheme = useStylesWithTheme(styles);
+  const [stylesWithTheme] = useStylesWithTheme(styles);
   return (
     <VerticalLayout style={stylesWithTheme.container}>
       <VerticalLayout>
