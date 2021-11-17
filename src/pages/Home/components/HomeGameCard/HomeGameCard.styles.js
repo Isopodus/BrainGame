@@ -18,8 +18,8 @@ export const styles = ({ colors, fonts, sizes }) => ({
     display: "flex",
 
     fontFamily: fonts.tematic,
-    fontSize: sizes.scale(29),
-    lineHeight: sizes.scale(44),
+    fontSize: sizes.scale(26),
+    lineHeight: sizes.scale(40),
     textAlign: "center",
     color: colors.white,
   },

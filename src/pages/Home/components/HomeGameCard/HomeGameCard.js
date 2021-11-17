@@ -9,7 +9,7 @@ import { HomeShapeCircle } from "./HomeShapes/HomeShapeCircle";
 import { HomeShapeSquare } from "./HomeShapes/HomeShapeSquare";
 import { HomeShapeTriangle } from "./HomeShapes/HomeShapeTriangle";
 
-export const HomeGameCard = ({ title, figure, reverse = false, disabled }) => {
+export const HomeGameCard = ({ style, title, figure, reverse = false, disabled }) => {
   const [stylesWithTheme] = useStylesWithTheme(styles);
 
   const Figure = useMemo(() => {
@@ -24,7 +24,7 @@ export const HomeGameCard = ({ title, figure, reverse = false, disabled }) => {
   }, [figure]);
 
   return (
-    <RowLayout style={[stylesWithTheme.container, reverse && { flexDirection: "row-reverse" }]}>
+    <RowLayout style={[style, stylesWithTheme.container, reverse && { flexDirection: "row-reverse" }]}>
       <VerticalLayout style={[stylesWithTheme.figure, { alignItems: reverse ? "flex-end" : "flex-start" }]}>
         <Figure />
       </VerticalLayout>
