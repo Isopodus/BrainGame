@@ -1,8 +1,8 @@
 import React from "react";
-import { Home } from "./src/pages/Home/Home";
+import { Auth } from "./src/pages/Auth/Auth";
 
 const App = () => {
-  return <Home />;
+  return <Auth />;
 };
 
 export default App;

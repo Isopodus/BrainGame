@@ -1,7 +1,4 @@
 export const styles = ({ sizes, colors }) => ({
-  firstCard: {
-    marginTop: sizes.scale(140),
-  },
   bottomCircle: {
     display: "flex",
     flex: 1,

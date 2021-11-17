@@ -1,4 +1,4 @@
 import React, { useMemo } from "react";
-import Entypo from "react-native-vector-icons/Entypo";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export const Icon = props => <Entypo {...props} />;
+export const Icon = props => <MaterialCommunityIcons {...props} />;
