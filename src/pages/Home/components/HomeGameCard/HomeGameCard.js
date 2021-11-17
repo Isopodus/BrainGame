@@ -30,7 +30,7 @@ export const HomeGameCard = ({ title, figure, reverse = false, disabled }) => {
       </VerticalLayout>
       <VerticalLayout style={stylesWithTheme.content}>
         <Text style={stylesWithTheme.title}>{title}</Text>
-        <Button title={disabled ? "Open soon" : "Start"} style={stylesWithTheme.button} disabled={disabled} />
+        <Button title={disabled ? "Locked" : "Start"} style={stylesWithTheme.button} disabled={disabled} />
       </VerticalLayout>
     </RowLayout>
   );
