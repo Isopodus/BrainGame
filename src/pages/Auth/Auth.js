@@ -7,14 +7,14 @@ import { View } from "react-native";
 import { useOpenClose } from "../../hooks/useOpenClose";
 import { AuthForm } from "./components/AuthForm/AuthForm";
 
-export const Auth = () => {
+export const Auth = ({ navigation }) => {
   const [stylesWithTheme] = useStylesWithTheme(styles);
 
   const [isLogin, openLogin, openSignIn] = useOpenClose(false);
 
   return (
     <PageLayout>
-      <Header title={isLogin ? "Log in" : "Sign in"} />
+      <Header title={isLogin ? "Log in" : "Sign in"} navigation={navigation} />
 
       <AuthForm authMode={isLogin} onSwitchPage={isLogin ? openSignIn : openLogin} />
 

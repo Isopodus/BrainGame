@@ -6,12 +6,12 @@ import { Header } from "../../library/Molecules/Header";
 import { useStylesWithTheme } from "../../hooks/useStylesWithTheme";
 import { styles } from "./Home.styles";
 
-export const Home = () => {
+export const Home = ({ navigation }) => {
   const [stylesWithTheme] = useStylesWithTheme(styles);
 
   return (
     <PageLayout>
-      <Header title={"Brain game"} />
+      <Header title={"Brain game"} navigation={navigation} />
 
       <ScrollView>
         <HomeGameCard title={`First${"\n"}game`} figure={"circle"} style={stylesWithTheme.firstCard} />

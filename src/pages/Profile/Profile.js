@@ -6,7 +6,7 @@ import { ProfileBanner } from "./components/ProfileBanner/ProfileBanner";
 import { ProfileTable } from "./components/ProfileTable/ProfileTable";
 import { ProfileButtons } from "./components/ProfileButtons/ProfileButtons";
 
-export const Profile = () => {
+export const Profile = ({ navigation }) => {
   //   const [stylesWithTheme] = useStylesWithTheme(styles);
 
   return (
@@ -14,7 +14,7 @@ export const Profile = () => {
       <ProfileBanner />
       <ScrollView>
         <ProfileTable />
-        <ProfileButtons />
+        <ProfileButtons navigation={navigation} />
       </ScrollView>
     </PageLayout>
   );
