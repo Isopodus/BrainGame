@@ -3,9 +3,9 @@ import { View, Text, TouchableHighlight, Vibration } from "react-native";
 import { tableGame } from "../../../constants";
 import { useGameTimer } from "../../hooks/useGameTimer";
 import { PageLayout } from "../../library/Layouts/PageLayout";
-import { styles } from "./Schulte.styles";
+import { styles } from "./TableGame.styles";
 
-export const Schulte = () => {
+export const TableGame = () => {
   const config = tableGame[1]; // Idx 0 defines level 1 of 3
   const totalItemsCount = config.SQUARE_SIZE * config.SQUARE_SIZE;
 
