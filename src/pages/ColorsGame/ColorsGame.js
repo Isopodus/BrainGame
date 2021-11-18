@@ -1,37 +1,41 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { View, Text, TouchableHighlight, Vibration } from "react-native";
-import { tableGame } from "../../../constants";
+import { colorsGame } from "../../../constants";
 import { useGameTimer } from "../../hooks/useGameTimer";
 import { PageLayout } from "../../library/Layouts/PageLayout";
-import { styles } from "./Schulte.styles";
+import { styles } from "./ColorsGame.styles";
 
 export const ColorsGame = () => {
-  const config = tableGame[1]; // Idx 0 defines level 1 of 3
+  const config = colorsGame[0]; // Idx 0 defines level 1 of 3
   const totalItemsCount = config.SQUARE_SIZE * config.SQUARE_SIZE;
 
-  const [sequence, setSequence] = useState([]);
-  const [validSequence, setValidSequence] = useState([]);
-  const [currentItemIdx, setCurrentItemIdx] = useState(0);
+  const [validColor, setValidColor] = useState([0, 0, 0]);
+  const [randomColors, setRandomColors] = useState([]);
   const [mistakesCount, setMistakesCount] = useState(0);
+  const [colorsLeft, setColorsLeft] = useState(config.COLORS_COUNT);
 
-  const generageGame = useCallback(generateLetters => {
-    let items;
-    if (generateLetters) {
-      // Generate a sequence of letters
-      items = Array(totalItemsCount)
-        .fill(0)
-        .map((_, i) => String.fromCharCode("A".charCodeAt(0) + i));
-    } else {
-      // Generate a sequence of numbers
-      items = [...Array(totalItemsCount).keys()].map(value => value + 1);
+  const generageGame = useCallback(() => {
+    const vColor = [Math.random() * 255, Math.random() * 255, Math.random() * 255];
+    setValidColor(vColor);
+
+    const colors = [];
+
+    for (let i = 0; i < totalItemsCount - 1; i++) {
+      const max = config.COLOR_BIAS;
+      const min = -config.COLOR_BIAS;
+      colors.push([
+        vColor[0] + Math.random() * (max - min) + min,
+        vColor[1] + Math.random() * (max - min) + min,
+        vColor[2] + Math.random() * (max - min) + min,
+      ]);
     }
-
-    // Save the valid sequence
-    setValidSequence([...items]);
+    colors.push(vColor);
 
     // Shuffle them all!
-    items.sort(() => Math.random() - 0.5);
-    setSequence(items);
+    colors.sort(() => Math.random() - 0.5);
+    colors.sort(() => Math.random() - 0.5);
+    colors.sort(() => Math.random() - 0.5);
+    setRandomColors(colors);
   });
 
   const handleLoose = useCallback(() => {
@@ -45,19 +49,18 @@ export const ColorsGame = () => {
     // ------------------------------------------------------- TODO: Do the post-game WIN message
   });
 
-  const [isGameStarted, timeLeft, onStartGame, onSetIsWinner] = useGameTimer(handleWin, handleLoose, config.GAME_TIME_MS);
+  const rgbToString = useCallback(rgb => `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`);
+
+  const [isGameStarted, timeLeft, onStartGame, onSetIsWinner] = useGameTimer(
+    handleWin,
+    handleLoose,
+    config.GAME_TIME_MS,
+  );
 
   // Generate the game on start
   useEffect(() => {
-    generageGame(config.LETTERS_MODE);
+    generageGame();
   }, []);
-
-  // Win if all the tiles are presed
-  useEffect(() => {
-    if (currentItemIdx >= totalItemsCount) {
-      onSetIsWinner(true);
-    }
-  }, [currentItemIdx]);
 
   // Loose if more than 3 mistakes
   useEffect(() => {
@@ -66,15 +69,21 @@ export const ColorsGame = () => {
     }
   }, [mistakesCount]);
 
-  const onCellPress = useCallback(number => {
+  const onCellPress = useCallback(color => {
     // Start the game if needed
     if (!isGameStarted) {
       onStartGame();
     }
 
-    // Check if the pressed number is valid
-    if (number === validSequence[currentItemIdx]) {
-      setCurrentItemIdx(currentItemIdx + 1);
+    // Check if the pressed color is valid
+    if (rgbToString(validColor) === color) {
+      if (colorsLeft - 1 === 0) {
+        // Win if pressed all the colors
+        onSetIsWinner(true);
+      } else {
+        generageGame();
+      }
+      setColorsLeft(colorsLeft - 1);
     } else {
       Vibration.vibrate(100);
       setMistakesCount(mistakesCount + 1);
@@ -85,29 +94,26 @@ export const ColorsGame = () => {
 
   return (
     <PageLayout>
-      <Text style={styles.headerText}>Schulte table</Text>
-      <Text style={styles.explanationText}>
-        Press the buttons in the valid order until the time is up. You are allowed to have 3 mistakes before you loose. The timer
-        starts as you press on any number.
-      </Text>
       <Text style={styles.timerText}>{timeLeft < 0 ? (0).toFixed(2) : (timeLeft / 1000).toFixed(2)}</Text>
-      <Text style={styles.mistakesText}>Mistakes: {mistakesCount}</Text>
       <View style={styles.container}>
-        {range.map((_, rowIdx) => (
-          <View key={rowIdx} style={styles.row}>
-            {range.map((_, colIdx) => {
-              const numIdx = colIdx + config.SQUARE_SIZE * rowIdx;
-              const isValid = validSequence[currentItemIdx] > sequence[numIdx] || currentItemIdx >= totalItemsCount;
-              return (
-                <TouchableHighlight key={colIdx} activeOpacity={0.7} onPress={() => onCellPress(sequence[numIdx])}>
-                  <View style={{ ...styles.cell, ...(isValid ? styles.validCell : {}) }}>
-                    <Text style={styles.cellText}>{sequence[numIdx]}</Text>
-                  </View>
-                </TouchableHighlight>
-              );
-            })}
-          </View>
-        ))}
+        <View style={{ ...styles.validColor, ...{ backgroundColor: rgbToString(validColor) } }}></View>
+        <Text style={styles.colorsLeft}>Colors left: {colorsLeft}</Text>
+        <Text style={styles.mistakesText}>Mistakes: {mistakesCount}</Text>
+        {randomColors.length > 0 &&
+          range.map((_, rowIdx) => (
+            <View key={rowIdx} style={styles.row}>
+              {range.map((_, colIdx) => {
+                const colorIdx = colIdx + config.SQUARE_SIZE * rowIdx;
+                // const isValid = validSequence[currentItemIdx] > sequence[numIdx] || currentItemIdx >= totalItemsCount;
+                const color = rgbToString(randomColors[colorIdx]);
+                return (
+                  <TouchableHighlight key={colIdx} activeOpacity={0.7} onPress={() => onCellPress(color)}>
+                    <View style={{ ...styles.cell, ...{ backgroundColor: color } }} />
+                  </TouchableHighlight>
+                );
+              })}
+            </View>
+          ))}
       </View>
     </PageLayout>
   );

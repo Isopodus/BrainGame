@@ -11,15 +11,16 @@ export const styles = {
     flexDirection: "row",
   },
   cell: {
-    width: scale(70),
-    height: scale(70),
-    margin: 1,
+    width: scale(100),
+    height: scale(100),
+    margin: 3,
     backgroundColor: colors.dark,
     justifyContent: "center",
     alignItems: "center",
   },
-  validCell: {
-    backgroundColor: colors.pink,
+  validColor: {
+    width: scale(150),
+    height: scale(150),
   },
   cellText: {
     fontSize: 20,
@@ -29,17 +30,18 @@ export const styles = {
     textAlign: "center",
     marginTop: scale(10),
   },
-  explanationText: {
-    fontSize: 18,
-    padding: scale(10),
-    textAlign: "center",
-  },
   timerText: {
     fontSize: 130,
     textAlign: "center",
   },
+  colorsLeft: {
+    fontSize: 20,
+    textAlign: "center",
+    marginTop: scale(15),
+  },
   mistakesText: {
     fontSize: 20,
     textAlign: "center",
+    marginBottom: scale(15),
   },
 };
