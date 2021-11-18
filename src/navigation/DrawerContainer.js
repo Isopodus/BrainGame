@@ -13,7 +13,7 @@ export const DrawerContainer = ({ navigation }) => {
       screenOptions={{
         headerShown: false,
       }}
-      // drawerContent={props => <DrawerContent {...props} />}
+      drawerContent={props => <DrawerContent {...props} />}
     >
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Profile" component={Profile} />

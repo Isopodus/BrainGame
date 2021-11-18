@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
-import { View, Text } from "react-native";
+import React from "react";
+import { View } from "react-native";
+import { BaseButton } from "../../Atoms/Button/BaseButton";
 import { styles } from "./styles";
 
-export const DrawerContent = ({ descriptors }) => {
+export const DrawerContent = ({ navigation, descriptors, state }) => {
   const drawerItems = Object.keys(descriptors).map((key, idx) => {
     const item = descriptors[key];
-
+    const active = state.routes[state.index].name === item.route.name;
     return (
-      <View key={idx}>
-        <Text>{item.route.name}</Text>
-      </View>
+      <BaseButton
+        titleStyle={active ? styles.active : {}}
+        key={idx}
+        title={item.route.name}
+        onPress={() => navigation.navigate(item.route.name)}
+      />
     );
   });
 
