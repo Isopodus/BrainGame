@@ -19,14 +19,19 @@ export const DrawGame = () => {
   const image1ref = useRef();
   const image2ref = useRef();
 
+  const countPoints = useCallback((multiplier, imagesDistance) => {
+    return ((timeLeft / config.GAME_TIME_MS) * multiplier - imagesDistance * 300 + 300).toFixed(0);
+  });
+
   const handleLoose = useCallback(() => {
     Vibration.vibrate(1000);
+    console.log(countPoints(100, 0.5), timeLeft);
     // ------------------------------------------------------- TODO: Do the post-game LOOSE message
   });
 
   const handleWin = useCallback(() => {
     Vibration.vibrate([0, 50, 50, 50, 50, 200]);
-
+    console.log(countPoints(1000, 0), timeLeft);
     // ------------------------------------------------------- TODO: Do the post-game WIN message
   });
 

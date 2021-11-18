@@ -35,14 +35,19 @@ export const TableGame = () => {
     setSequence(items);
   });
 
+  const countPoints = useCallback(multiplier => {
+    return ((timeLeft / config.GAME_TIME_MS) * multiplier - mistakesCount * 100 + 300).toFixed(0);
+  });
+
   const handleLoose = useCallback(() => {
-    Vibration.vibrate(1000);
+    Vibration.vibrate(100);
+    console.log(countPoints(100), timeLeft);
     // ------------------------------------------------------- TODO: Do the post-game LOOSE message
   });
 
   const handleWin = useCallback(() => {
     Vibration.vibrate([0, 50, 50, 50, 50, 200]);
-
+    console.log(countPoints(1000), timeLeft);
     // ------------------------------------------------------- TODO: Do the post-game WIN message
   });
 

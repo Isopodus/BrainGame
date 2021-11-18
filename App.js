@@ -1,8 +1,8 @@
 import React from "react";
-import { ColorsGame } from "./src/pages/ColorsGame/ColorsGame";
+import { DrawGame } from "./src/pages/DrawGame/DrawGame";
 
 const App = () => {
-  return <ColorsGame />;
+  return <DrawGame />;
 };
 
 export default App;
