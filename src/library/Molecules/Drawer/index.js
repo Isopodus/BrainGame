@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { BaseButton } from "../../Atoms/Button/BaseButton";
+import { VerticalLayout } from "../../Layouts/VerticalLayout";
 import { styles } from "./styles";
 
 export const DrawerContent = ({ navigation, descriptors, state }) => {
@@ -9,7 +10,7 @@ export const DrawerContent = ({ navigation, descriptors, state }) => {
     const active = state.routes[state.index].name === item.route.name;
     return (
       <BaseButton
-        titleStyle={active ? styles.active : {}}
+        titleStyle={[active && styles.active, styles.link]}
         key={idx}
         title={item.route.name}
         onPress={() => navigation.navigate(item.route.name)}
@@ -17,5 +18,11 @@ export const DrawerContent = ({ navigation, descriptors, state }) => {
     );
   });
 
-  return <View style={styles.container}>{drawerItems}</View>;
+  return (
+    <VerticalLayout style={styles.container}>
+      <View style={styles.topCircle} />
+      {drawerItems}
+      <View style={styles.bottomCircle} />
+    </VerticalLayout>
+  );
 };
