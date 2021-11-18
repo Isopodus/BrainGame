@@ -1,20 +1,27 @@
-import { scale } from "../../ui/size";
+import { scale, fullWidth } from "../../ui/size";
 import { colors } from "../../ui/colors";
 
 export const styles = {
-  container: {
+  gridContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    width: fullWidth,
+    height: fullWidth,
+    padding: 30,
   },
   row: {
+    flex: 1,
     flexDirection: "row",
   },
   cell: {
-    width: scale(70),
-    height: scale(70),
+    flex: 1,
     margin: 1,
     backgroundColor: colors.dark,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  innerCell: {
+    flex: 1,
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },

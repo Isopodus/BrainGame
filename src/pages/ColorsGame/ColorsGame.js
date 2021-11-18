@@ -96,24 +96,29 @@ export const ColorsGame = () => {
     <PageLayout>
       <Text style={styles.timerText}>{timeLeft < 0 ? (0).toFixed(2) : (timeLeft / 1000).toFixed(2)}</Text>
       <View style={styles.container}>
-        <View style={{ ...styles.validColor, ...{ backgroundColor: rgbToString(validColor) } }}></View>
+        <View style={{ ...styles.validColor, backgroundColor: rgbToString(validColor) }}></View>
         <Text style={styles.colorsLeft}>Colors left: {colorsLeft}</Text>
         <Text style={styles.mistakesText}>Mistakes: {mistakesCount}</Text>
-        {randomColors.length > 0 &&
-          range.map((_, rowIdx) => (
-            <View key={rowIdx} style={styles.row}>
-              {range.map((_, colIdx) => {
-                const colorIdx = colIdx + config.SQUARE_SIZE * rowIdx;
-                // const isValid = validSequence[currentItemIdx] > sequence[numIdx] || currentItemIdx >= totalItemsCount;
-                const color = rgbToString(randomColors[colorIdx]);
-                return (
-                  <TouchableHighlight key={colIdx} activeOpacity={0.7} onPress={() => onCellPress(color)}>
-                    <View style={{ ...styles.cell, ...{ backgroundColor: color } }} />
-                  </TouchableHighlight>
-                );
-              })}
-            </View>
-          ))}
+        <View style={styles.gridContainer}>
+          {randomColors.length > 0 &&
+            range.map((_, rowIdx) => (
+              <View key={rowIdx} style={styles.row}>
+                {range.map((_, colIdx) => {
+                  const colorIdx = colIdx + config.SQUARE_SIZE * rowIdx;
+                  const color = rgbToString(randomColors[colorIdx]);
+                  return (
+                    <TouchableHighlight
+                      key={colIdx}
+                      style={styles.cell}
+                      activeOpacity={0.7}
+                      onPress={() => onCellPress(color)}>
+                      <View style={{ ...styles.innerCell, backgroundColor: color }} />
+                    </TouchableHighlight>
+                  );
+                })}
+              </View>
+            ))}
+        </View>
       </View>
     </PageLayout>
   );

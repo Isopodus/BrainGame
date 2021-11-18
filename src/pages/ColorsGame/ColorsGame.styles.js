@@ -1,4 +1,4 @@
-import { scale } from "../../ui/size";
+import { scale, fullWidth } from "../../ui/size";
 import { colors } from "../../ui/colors";
 
 export const styles = {
@@ -7,14 +7,25 @@ export const styles = {
     justifyContent: "center",
     alignItems: "center",
   },
+  gridContainer: {
+    width: fullWidth,
+    height: fullWidth,
+    padding: 30,
+  },
   row: {
+    flex: 1,
     flexDirection: "row",
   },
   cell: {
-    width: scale(100),
-    height: scale(100),
+    flex: 1,
     margin: 3,
     backgroundColor: colors.dark,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  innerCell: {
+    flex: 1,
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -24,11 +35,6 @@ export const styles = {
   },
   cellText: {
     fontSize: 20,
-  },
-  headerText: {
-    fontSize: 48,
-    textAlign: "center",
-    marginTop: scale(10),
   },
   timerText: {
     fontSize: 130,
@@ -42,6 +48,5 @@ export const styles = {
   mistakesText: {
     fontSize: 20,
     textAlign: "center",
-    marginBottom: scale(15),
   },
 };

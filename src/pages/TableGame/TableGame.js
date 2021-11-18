@@ -45,7 +45,11 @@ export const TableGame = () => {
     // ------------------------------------------------------- TODO: Do the post-game WIN message
   });
 
-  const [isGameStarted, timeLeft, onStartGame, onSetIsWinner] = useGameTimer(handleWin, handleLoose, config.GAME_TIME_MS);
+  const [isGameStarted, timeLeft, onStartGame, onSetIsWinner] = useGameTimer(
+    handleWin,
+    handleLoose,
+    config.GAME_TIME_MS,
+  );
 
   // Generate the game on start
   useEffect(() => {
@@ -87,20 +91,24 @@ export const TableGame = () => {
     <PageLayout>
       <Text style={styles.headerText}>Schulte table</Text>
       <Text style={styles.explanationText}>
-        Press the buttons in the valid order until the time is up. You are allowed to have 3 mistakes before you loose. The timer
-        starts as you press on any number.
+        Press the buttons in the valid order until the time is up. You are allowed to have 3 mistakes before you loose.
+        The timer starts as you press on any number.
       </Text>
       <Text style={styles.timerText}>{timeLeft < 0 ? (0).toFixed(2) : (timeLeft / 1000).toFixed(2)}</Text>
       <Text style={styles.mistakesText}>Mistakes: {mistakesCount}</Text>
-      <View style={styles.container}>
+      <View style={styles.gridContainer}>
         {range.map((_, rowIdx) => (
           <View key={rowIdx} style={styles.row}>
             {range.map((_, colIdx) => {
               const numIdx = colIdx + config.SQUARE_SIZE * rowIdx;
               const isValid = validSequence[currentItemIdx] > sequence[numIdx] || currentItemIdx >= totalItemsCount;
               return (
-                <TouchableHighlight key={colIdx} activeOpacity={0.7} onPress={() => onCellPress(sequence[numIdx])}>
-                  <View style={{ ...styles.cell, ...(isValid ? styles.validCell : {}) }}>
+                <TouchableHighlight
+                  key={colIdx}
+                  style={{ ...styles.cell, ...(isValid ? styles.validCell : {}) }}
+                  activeOpacity={0.7}
+                  onPress={() => onCellPress(sequence[numIdx])}>
+                  <View style={styles.innerCell}>
                     <Text style={styles.cellText}>{sequence[numIdx]}</Text>
                   </View>
                 </TouchableHighlight>
