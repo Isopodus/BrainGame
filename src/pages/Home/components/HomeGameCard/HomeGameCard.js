@@ -10,22 +10,35 @@ import { HomeShapeSquare } from "./HomeShapes/HomeShapeSquare";
 import { HomeShapeTriangle } from "./HomeShapes/HomeShapeTriangle";
 import { useOpenClose } from "../../../../hooks/useOpenClose";
 import { HomeDifficultiesModal } from "../HomeDifficultiesModal/HomeDifficultiesModal";
+import { HomeInstructionsModal } from "../HomeInstructionsModal/HomeInstructionsModal";
 
-export const HomeGameCard = ({ style, title, figure, reverse = false, disabled }) => {
-  const [stylesWithTheme] = useStylesWithTheme(styles);
+export const HomeGameCard = ({ style, title, reverse = false, disabled, completed, gameNumber = 1 }) => {
+  const [stylesWithTheme, theme] = useStylesWithTheme(styles);
 
   const [isDifficultiesModalOpen, openDifficultiesModal, closeDifficultiesModal] = useOpenClose(false);
+  const [isInstructionsModalOpen, openInstructionsModal, closeInstructionsModal] = useOpenClose(false);
+
+  const buttonText = useMemo(() => {
+    switch (true) {
+      case disabled:
+        return "Locked";
+      case completed:
+        return "Passed";
+      default:
+        return "Start";
+    }
+  }, [disabled, completed]);
 
   const Figure = useMemo(() => {
-    switch (figure) {
-      case "circle":
+    switch (gameNumber) {
+      case 1:
         return HomeShapeCircle;
-      case "triangle":
+      case 2:
         return HomeShapeTriangle;
       default:
         return HomeShapeSquare;
     }
-  }, [figure]);
+  }, [gameNumber]);
 
   return (
     <>
@@ -36,13 +49,21 @@ export const HomeGameCard = ({ style, title, figure, reverse = false, disabled }
         <VerticalLayout style={stylesWithTheme.content}>
           <Text style={stylesWithTheme.title}>{title}</Text>
           <PrimaryButton
-            title={disabled ? "Locked" : "Start"}
-            style={stylesWithTheme.button}
+            title={buttonText}
+            style={[stylesWithTheme.button, completed && { backgroundColor: theme.colors.red }]}
             disabled={disabled}
-            onPress={openDifficultiesModal}
+            onPress={openInstructionsModal}
           />
         </VerticalLayout>
       </RowLayout>
+
+      <HomeInstructionsModal
+        open={isInstructionsModalOpen}
+        toggleModal={closeInstructionsModal}
+        gameNumber={gameNumber}
+        disabled={disabled}
+        completed={completed}
+      />
 
       <HomeDifficultiesModal open={isDifficultiesModalOpen} toggleModal={closeDifficultiesModal} />
     </>

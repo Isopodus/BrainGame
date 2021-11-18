@@ -2,13 +2,6 @@ export const styles = ({ fonts, colors, sizes }) => ({
   container: {
     alignItems: "stretch",
   },
-  title: {
-    paddingBottom: sizes.scale(10),
-
-    fontFamily: fonts.regular,
-    fontSize: sizes.scale(22),
-    color: colors.dark,
-  },
   button: {
     marginVertical: sizes.scale(10),
     paddingLeft: "32%",

@@ -2,7 +2,6 @@ import React, { useMemo, useState } from "react";
 import { Text, View } from "react-native";
 import { useStylesWithTheme } from "../../../../hooks/useStylesWithTheme";
 import { styles } from "./HomeDifficultiesModal.styles";
-import { RowLayout } from "../../../../library/Layouts/RowLayout";
 import { VerticalLayout } from "../../../../library/Layouts/VerticalLayout";
 import { PrimaryButton } from "../../../../library/Atoms/Button/PrimaryButton";
 import { Popup } from "../../../../library/Molecules/Popup";
@@ -21,7 +20,6 @@ export const HomeDifficultiesModal = ({ open, toggleModal }) => {
           Select the desired game difficulty. This setting affects all the mini-games in a game session.
         </Text>
         <RadioButtonsGroup
-          title={"Choose difficulty:"}
           value={difficulty}
           options={[
             { label: "Easy", name: "easy" },

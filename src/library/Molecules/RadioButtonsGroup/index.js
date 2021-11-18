@@ -11,7 +11,6 @@ export const RadioButtonsGroup = ({ title, value, options, onChange }) => {
 
   return (
     <VerticalLayout style={stylesWithTheme.container}>
-      <Text style={stylesWithTheme.title}>{title}</Text>
       <RadioButton.Group value={value} onValueChange={onChange}>
         {options.map(({ label, name }) => (
           <RowLayout key={`${label}-${name}`} style={stylesWithTheme.button}>

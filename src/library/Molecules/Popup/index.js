@@ -7,7 +7,7 @@ import { styles } from "./styles";
 export const Popup = ({ open, title, children, bottomButtons }) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
   return (
-    <Modal isVisible={open} backdropColor={theme.colors.blue} backdropOpacity={0.93} style={stylesWithTheme.modal}>
+    <Modal isVisible={open} backdropColor={theme.colors.blue} backdropOpacity={0.95} style={stylesWithTheme.modal}>
       <Text style={stylesWithTheme.title}>{title}</Text>
       {children}
       {bottomButtons}

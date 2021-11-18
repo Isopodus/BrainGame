@@ -14,9 +14,9 @@ export const Home = ({ navigation }) => {
       <Header title={"Brain game"} navigation={navigation} />
 
       <ScrollView>
-        <HomeGameCard title={`First${"\n"}game`} figure={"circle"} style={stylesWithTheme.firstCard} />
-        <HomeGameCard title={<>SEcond{"\n"}game</>} figure={"triangle"} reverse disabled />
-        <HomeGameCard title={`Third${"\n"}game`} disabled />
+        <HomeGameCard title={`First${"\n"}game`} style={stylesWithTheme.firstCard} completed />
+        <HomeGameCard title={<>SEcond{"\n"}game</>} gameNumber={2} reverse />
+        <HomeGameCard title={`Third${"\n"}game`} gameNumber={3} disabled />
       </ScrollView>
 
       <View style={stylesWithTheme.bottomCircle} />
