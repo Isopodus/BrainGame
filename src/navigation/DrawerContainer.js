@@ -3,7 +3,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Home } from "../Home/Home";
 import { Profile } from "../Profile/Profile";
 import { Auth } from "../Auth/Auth";
-import { DrawerContent } from "./components/DrawerContent";
+import { DrawerContent } from "../library/Molecules/Drawer";
 
 const Drawer = createDrawerNavigator();
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text } from "react-native";
-import { styles } from "./DrawerContent.styles";
+import { styles } from "./styles";
 
 export const DrawerContent = ({ descriptors }) => {
   const drawerItems = Object.keys(descriptors).map((key, idx) => {

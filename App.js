@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { Preview } from "./src/pages/Preview/Preview";
-import { DrawerContainer } from "./src/pages/DrawerContainer/DrawerContainer";
+import { DrawerContainer } from "./src/navigation/DrawerContainer";
 
 import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
