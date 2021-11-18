@@ -2,7 +2,7 @@ export const styles = ({ colors, sizes, fonts }) => ({
   container: {
     position: "absolute",
     flex: 1,
-    top: sizes.scale(-(sizes.fullWidth / 1.5)),
+    top: "-35%",
     left: sizes.scale(-15),
     width: sizes.fullWidth + sizes.scale(30),
     height: sizes.fullWidth + sizes.scale(30),
@@ -24,5 +24,8 @@ export const styles = ({ colors, sizes, fonts }) => ({
     fontFamily: fonts.tematic,
     fontSize: sizes.scale(100),
     color: colors.blue,
+  },
+  margin: {
+    height: sizes.fullWidth * 0.65,
   },
 });

@@ -1,7 +1,6 @@
 export const styles = ({ colors, sizes, fonts }) => ({
   container: {
     alignItems: "stretch",
-    marginTop: sizes.scale(300),
     paddingHorizontal: "2%",
   },
   title: {
