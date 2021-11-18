@@ -10,6 +10,21 @@ export const styles = ({ sizes, colors, fonts }) => ({
 
     zIndex: 1,
   },
+  containerRounded: {
+    position: "absolute",
+    flex: 1,
+    top: "-35%",
+    left: sizes.scale(-15),
+    width: sizes.fullWidth + sizes.scale(30),
+    height: sizes.fullWidth + sizes.scale(30),
+    justifyContent: "flex-end",
+
+    backgroundColor: colors.white,
+
+    borderRadius: (sizes.fullWidth + sizes.scale(30)) / 2,
+
+    zIndex: 1,
+  },
   circle: {
     position: "absolute",
     display: "flex",
@@ -37,5 +52,20 @@ export const styles = ({ sizes, colors, fonts }) => ({
     color: colors.white,
 
     zIndex: 2,
+  },
+  titleRounded: {
+    paddingBottom: sizes.scale(50),
+
+    fontFamily: fonts.tematic,
+    fontSize: sizes.scale(100),
+    color: colors.blue,
+  },
+  subtitleRounded: {
+    fontFamily: fonts.primary,
+    fontSize: sizes.scale(35),
+    color: colors.blue,
+  },
+  margin: {
+    height: sizes.fullWidth * 0.65,
   },
 });

@@ -5,9 +5,22 @@ import { styles } from "./styles";
 import LinearGradient from "react-native-linear-gradient";
 import { RowLayout } from "../../Layouts/RowLayout";
 import { Icon } from "../../Atoms/Icons";
+import { VerticalLayout } from "../../Layouts/VerticalLayout";
 
-export const Header = ({ title }) => {
+export const Header = ({ title, subtitle, rounded = false, children }) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
+  if (rounded) {
+    return (
+      <>
+        <VerticalLayout style={stylesWithTheme.containerRounded}>
+          {title && <Text style={stylesWithTheme.subtitleRounded}>{title}</Text>}
+          {subtitle && <Text style={stylesWithTheme.titleRounded}>{subtitle}</Text>}
+          {children}
+        </VerticalLayout>
+        <View style={stylesWithTheme.margin} />
+      </>
+    );
+  }
   return (
     <LinearGradient
       style={stylesWithTheme.container}

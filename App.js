@@ -1,8 +1,8 @@
 import React from "react";
-import { Profile } from "./src/pages/Profile/Profile";
+import { Rating } from "./src/pages/Rating/Rating";
 
 const App = () => {
-  return <Profile />;
+  return <Rating />;
 };
 
 export default App;

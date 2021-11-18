@@ -1,7 +1,5 @@
-export const styles = ({ sizes, colors }) => ({
+export const styles = () => ({
   page: {
     flex: 1,
-    // justifyContent: "flex-end",
-    // paddingBottom: "5%",
   },
 });
