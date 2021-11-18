@@ -1,10 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { Preview } from "./src/pages/Preview/Preview";
-import { DrawerContainer } from "./src/navigation/DrawerContainer";
-
-import { createStackNavigator } from "@react-navigation/stack";
-const Stack = createStackNavigator();
+import { StackContainer } from "./src/navigation/StackContainer";
 
 const App = () => {
   const navigationRef = useRef();
@@ -15,15 +11,7 @@ const App = () => {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator
-        initialRouteName={"Preview"}
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="Preview" component={Preview} />
-        <Stack.Screen name="DrawerContainer" component={DrawerContainer} />
-      </Stack.Navigator>
+      <StackContainer />
     </NavigationContainer>
   );
 };

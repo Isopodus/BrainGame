@@ -1,8 +1,7 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { Home } from "../Home/Home";
-import { Profile } from "../Profile/Profile";
-import { Auth } from "../Auth/Auth";
+import { Home } from "../pages/Home/Home";
+import { Profile } from "../pages/Profile/Profile";
 import { DrawerContent } from "../library/Molecules/Drawer";
 
 const Drawer = createDrawerNavigator();
@@ -18,7 +17,6 @@ export const DrawerContainer = ({ navigation }) => {
     >
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Profile" component={Profile} />
-      <Drawer.Screen name="Auth" component={Auth} />
     </Drawer.Navigator>
   );
 };
