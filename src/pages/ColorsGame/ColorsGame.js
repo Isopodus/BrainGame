@@ -4,6 +4,7 @@ import { colorsGame } from "../../../constants";
 import { useGameTimer } from "../../hooks/useGameTimer";
 import { PageLayout } from "../../library/Layouts/PageLayout";
 import { styles } from "./ColorsGame.styles";
+import Orientation from "react-native-orientation";
 
 export const ColorsGame = () => {
   const config = colorsGame[0]; // Idx 0 defines level 1 of 3
@@ -59,6 +60,7 @@ export const ColorsGame = () => {
 
   // Generate the game on start
   useEffect(() => {
+    Orientation.lockToPortrait();
     generageGame();
   }, []);
 

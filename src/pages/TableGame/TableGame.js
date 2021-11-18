@@ -4,6 +4,7 @@ import { tableGame } from "../../../constants";
 import { useGameTimer } from "../../hooks/useGameTimer";
 import { PageLayout } from "../../library/Layouts/PageLayout";
 import { styles } from "./TableGame.styles";
+import Orientation from "react-native-orientation";
 
 export const TableGame = () => {
   const config = tableGame[1]; // Idx 0 defines level 1 of 3
@@ -53,6 +54,7 @@ export const TableGame = () => {
 
   // Generate the game on start
   useEffect(() => {
+    Orientation.lockToPortrait();
     generageGame(config.LETTERS_MODE);
   }, []);
 
