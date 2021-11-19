@@ -28,7 +28,7 @@ export const Rating = ({ navigation }) => {
   useEffect(() => {
     togglePageLoading();
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       api.getLeaderboard(token).then(data => {
         togglePageLoading();
 
@@ -37,6 +37,8 @@ export const Rating = ({ navigation }) => {
         setScores(scores);
       });
     }, 1000);
+
+    return () => clearTimeout(timeout);
   }, [token]);
 
   return (
