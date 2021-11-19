@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { useStylesWithTheme } from "../../../../hooks/useStylesWithTheme";
 import { styles } from "./HomeInstructionsModal.styles";
@@ -7,24 +7,20 @@ import { PrimaryButton } from "../../../../library/Atoms/Button/PrimaryButton";
 import { Popup } from "../../../../library/Molecules/Popup";
 import { BaseButton } from "../../../../library/Atoms/Button/BaseButton";
 import { GAMES_DESCIPTIONS } from "../../../../../constants";
-import { HomeShapeCircle } from "../HomeGameCard/HomeShapes/HomeShapeCircle";
-import { HomeShapeSquare } from "../HomeGameCard/HomeShapes/HomeShapeSquare";
-import { HomeShapeTriangle } from "../HomeGameCard/HomeShapes/HomeShapeTriangle";
 import { Accordion } from "../../../../library/Molecules/Accordion";
 
 export const HomeInstructionsModal = ({ open, startGame, resetGame, toggleModal, disabled, completed, gameNumber }) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
 
-  const Figure = useMemo(() => {
-    switch (gameNumber) {
-      case 1:
-        return HomeShapeCircle;
-      case 2:
-        return HomeShapeTriangle;
-      default:
-        return HomeShapeSquare;
-    }
-  }, [gameNumber]);
+  const handleStartGame = useCallback(() => {
+    startGame();
+    toggleModal();
+  }, []);
+
+  const handleResetGame = useCallback(() => {
+    resetGame();
+    toggleModal();
+  }, []);
 
   if (disabled || completed) {
     return (
@@ -61,12 +57,12 @@ export const HomeInstructionsModal = ({ open, startGame, resetGame, toggleModal,
         </Accordion>
       </ScrollView>
       <VerticalLayout style={stylesWithTheme.footer}>
-        <PrimaryButton title="Start game" style={stylesWithTheme.firstButton} onPress={startGame} />
+        <PrimaryButton title="Start game" style={stylesWithTheme.firstButton} onPress={handleStartGame} />
         {gameNumber !== 0 && (
           <PrimaryButton
             title="Reset game session"
             style={{ backgroundColor: theme.colors.blue }}
-            onPress={resetGame}
+            onPress={handleResetGame}
           />
         )}
         <BaseButton title={"Cancel"} onPress={toggleModal} />
