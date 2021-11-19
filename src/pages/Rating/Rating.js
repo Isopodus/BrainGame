@@ -18,7 +18,7 @@ export const Rating = ({ navigation }) => {
   const token = useSelector(state => state.token);
   const user = useSelector(state => state.user);
 
-  const onPressBack = useCallback(() => navigation.navigate("Profile"));
+  const onPressBack = useCallback(() => navigation.navigate("Home"));
 
   useEffect(() => {
     api.getLeaderboard(token).then(data => {
@@ -36,12 +36,7 @@ export const Rating = ({ navigation }) => {
       <ScrollView style={stylesWithTheme.page}>
         <RatingPlayerScore scores={scores} playerBestScore={playerBestScore} />
       </ScrollView>
-      <PrimaryButton
-        title={"Back to the profile"}
-        style={stylesWithTheme.button}
-        secondaryColor
-        onPress={onPressBack}
-      />
+      <PrimaryButton title={"Back to the menu"} style={stylesWithTheme.button} secondaryColor onPress={onPressBack} />
     </PageLayout>
   );
 };
