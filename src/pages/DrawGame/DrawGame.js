@@ -9,6 +9,11 @@ import { api } from "../../requests/api";
 import { useStylesWithTheme } from "../../hooks/useStylesWithTheme";
 import { Animation } from "../../library/Atoms/Animations";
 import { PrimaryButton } from "../../library/Atoms/Button/PrimaryButton";
+// import { EndGameModal } from "../_common/EndGameModal/EndGameModal";
+// import { useOpenClose } from "../../hooks/useOpenClose";
+// import { Backdrop } from "../../library/Atoms/Backdrop";
+// import { useToggle } from "../../hooks/useToggle";
+// import { StartGameBackdrop } from "../_common/StartGameBackdrop/StartGameBackdrop";
 
 import SignatureCapture from "react-native-signature-capture";
 import Orientation from "react-native-orientation";
@@ -29,6 +34,10 @@ export const DrawGame = ({ navigation, route }) => {
   const [checkDoubleTouch, setCheckDoubleTouch] = useState(false);
   const [inputImages, setInputImages] = useState([null, null]);
   const [outputImages, setOutputImages] = useState([]);
+
+  // const [isEndGameModalOpen, openEndGameModal, closeEndGameModal] = useOpenClose(false);
+
+  // const [savingResultsLoading, toggleSavingResultsLoading] = useToggle(false);
 
   const image1ref = useRef();
   const image2ref = useRef();
@@ -162,6 +171,7 @@ export const DrawGame = ({ navigation, route }) => {
   const cookie = require("../../assets/images/cookie.png");
   return (
     <PageLayout>
+      {/* <StartGameBackdrop onUnmount={() => {}} /> */}
       <RowLayout style={stylesWithTheme.container}>
         <VerticalLayout
           style={stylesWithTheme.imageContainer}
@@ -227,6 +237,10 @@ export const DrawGame = ({ navigation, route }) => {
           {!isGameStarted && <View style={stylesWithTheme.drawBlocker} />}
         </VerticalLayout>
       </RowLayout>
+
+      {/* <EndGameModal open={isEndGameModalOpen} toggleModal={closeEndGameModal} gameNumber={1} isWinner /> */}
+
+      {/* {savingResultsLoading && <Backdrop />} */}
     </PageLayout>
   );
 };

@@ -6,9 +6,13 @@ import LinearGradient from "react-native-linear-gradient";
 import { RowLayout } from "../../Layouts/RowLayout";
 import { Icon } from "../../Atoms/Icons";
 import { VerticalLayout } from "../../Layouts/VerticalLayout";
+import { useNavigation } from "@react-navigation/native";
 
-export const Header = ({ title, titleStyle, subtitle, rounded = false, children, navigation, showEqual = true }) => {
+export const Header = ({ title, titleStyle, subtitle, rounded = false, children, showEqual = true }) => {
+  const { openDrawer } = useNavigation();
+
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
+
   if (rounded) {
     return (
       <>
@@ -36,12 +40,7 @@ export const Header = ({ title, titleStyle, subtitle, rounded = false, children,
         >
           <View style={stylesWithTheme.circle}>
             {showEqual && (
-              <Icon
-                name={"equal"}
-                size={theme.sizes.scale(50)}
-                color={theme.colors.dark}
-                onPress={navigation.openDrawer}
-              />
+              <Icon name={"equal"} size={theme.sizes.scale(50)} color={theme.colors.dark} onPress={openDrawer} />
             )}
           </View>
           <RowLayout>

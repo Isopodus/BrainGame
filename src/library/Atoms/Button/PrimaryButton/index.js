@@ -1,9 +1,18 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity, Text } from "react-native";
 import { styles } from "./styles";
 import { useStylesWithTheme } from "../../../../hooks/useStylesWithTheme";
+import { Progress } from "../../Progress";
 
-export const PrimaryButton = ({ title, style, textStyle, disabled = false, secondaryColor = false, onPress }) => {
+export const PrimaryButton = ({
+  title,
+  style,
+  textStyle,
+  disabled = false,
+  secondaryColor = false,
+  loading = false,
+  onPress,
+}) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
   return (
     <TouchableOpacity
@@ -15,7 +24,11 @@ export const PrimaryButton = ({ title, style, textStyle, disabled = false, secon
       ]}
       onPress={onPress}
     >
-      <Text style={[stylesWithTheme.title, textStyle]}>{title}</Text>
+      {loading ? (
+        <Progress size={"small"} color={theme.colors.white} />
+      ) : (
+        <Text style={[stylesWithTheme.title, textStyle]}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 };

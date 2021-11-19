@@ -98,3 +98,5 @@ export const colorsGame = [
     COLORS_COUNT: 3,
   },
 ];
+
+export const SECONDS_TO_START = 5;

@@ -11,6 +11,11 @@ import { Animation } from "../../library/Atoms/Animations";
 import { RowLayout } from "../../library/Layouts/RowLayout";
 import { useSelector } from "react-redux";
 import { api } from "../../requests/api";
+// import { EndGameModal } from "../_common/EndGameModal/EndGameModal";
+// import { useOpenClose } from "../../hooks/useOpenClose";
+// import { Backdrop } from "../../library/Atoms/Backdrop";
+// import { useToggle } from "../../hooks/useToggle";
+// import { StartGameBackdrop } from "../_common/StartGameBackdrop/StartGameBackdrop";
 
 export const ColorsGame = ({ navigation, route }) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
@@ -24,6 +29,10 @@ export const ColorsGame = ({ navigation, route }) => {
   const [randomColors, setRandomColors] = useState([]);
   const [mistakesCount, setMistakesCount] = useState(0);
   const [colorsLeft, setColorsLeft] = useState(config.COLORS_COUNT);
+
+  // const [isEndGameModalOpen, openEndGameModal, closeEndGameModal] = useOpenClose(false);
+
+  // const [savingResultsLoading, toggleSavingResultsLoading] = useToggle(false);
 
   const generageGame = useCallback(() => {
     const vColor = [Math.random() * 255, Math.random() * 255, Math.random() * 255];
@@ -115,6 +124,8 @@ export const ColorsGame = ({ navigation, route }) => {
 
   return (
     <PageLayout>
+      {/* <StartGameBackdrop onUnmount={() => {}} /> */}
+
       <Header rounded>
         <Text style={stylesWithTheme.title}>Colors palEtte</Text>
         <View style={stylesWithTheme.animation}>
@@ -150,6 +161,10 @@ export const ColorsGame = ({ navigation, route }) => {
             </RowLayout>
           ))}
       </View>
+
+      {/* <EndGameModal open={isEndGameModalOpen} toggleModal={closeEndGameModal} gameNumber={1} isWinner /> */}
+
+      {/* {savingResultsLoading && <Backdrop />} */}
     </PageLayout>
   );
 };

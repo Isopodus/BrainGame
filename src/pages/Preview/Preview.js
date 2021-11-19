@@ -4,14 +4,14 @@ import { PreviewHeader } from "./components/PreviewHeader/PreviewHeader";
 import { PreviewImage } from "./components/PreviewImage/PreviewImage";
 import Orientation from "react-native-orientation";
 
-export const Preview = ({ navigation }) => {
+export const Preview = () => {
   useEffect(() => {
     Orientation.lockToPortrait();
   }, []);
 
   return (
     <PageLayout>
-      <PreviewHeader navigation={navigation} />
+      <PreviewHeader />
       <PreviewImage />
     </PageLayout>
   );

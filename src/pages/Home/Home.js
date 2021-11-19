@@ -10,13 +10,22 @@ import { styles } from "./Home.styles";
 import { setAction, cleanAction } from "../../../store";
 import { api } from "../../requests/api";
 import { GAMES_ENUM } from "../../../constants";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { Backdrop } from "../../library/Atoms/Backdrop";
+import { useToggle } from "../../hooks/useToggle";
 
-export const Home = ({ navigation, route }) => {
+export const Home = () => {
+  const { navigate } = useNavigation();
+  const route = useRoute();
+
   const dispatch = useDispatch();
+
   const [stylesWithTheme] = useStylesWithTheme(styles);
 
   const token = useSelector(state => state.token);
   const session = useSelector(state => state.session);
+
+  const [pageLoading, togglePageLoading] = useToggle(false);
 
   const resetGameSession = useCallback(() => {
     api.cancelSession(token).then(data => loadSession(data.data));
@@ -27,14 +36,20 @@ export const Home = ({ navigation, route }) => {
       if (mySession?.sessionDifficulty) {
         dispatch(setAction("session", mySession));
       } else {
-        api.lastSession(token).then(data => {
-          const lastSession = data.data;
-          if (lastSession.sessionStatus === 0) {
-            dispatch(setAction("session", lastSession));
-          } else {
-            dispatch(cleanAction("session"));
-          }
-        });
+        togglePageLoading();
+
+        setTimeout(() => {
+          api.lastSession(token).then(data => {
+            togglePageLoading();
+
+            const lastSession = data.data;
+            if (lastSession.sessionStatus === 0) {
+              dispatch(setAction("session", lastSession));
+            } else {
+              dispatch(cleanAction("session"));
+            }
+          });
+        }, 1000);
       }
     },
     [token],
@@ -53,12 +68,12 @@ export const Home = ({ navigation, route }) => {
       // Create new session if needed
       startNewSession(difficulty).then(newSession => {
         console.log("new session", gameNumber, newSession);
-        navigation.navigate(GAMES_ENUM[gameNumber], { difficulty });
+        navigate(GAMES_ENUM[gameNumber], { difficulty });
       });
     } else {
       // Continue with the previous session
       console.log("old session", gameNumber, session);
-      navigation.navigate(GAMES_ENUM[gameNumber], { difficulty: session.sessionDifficulty });
+      navigate(GAMES_ENUM[gameNumber], { difficulty: session.sessionDifficulty });
     }
   });
 
@@ -76,7 +91,9 @@ export const Home = ({ navigation, route }) => {
 
   return (
     <PageLayout>
-      <Header title={"Brain\n    game"} navigation={navigation} />
+      {pageLoading && <Backdrop />}
+
+      <Header title={"Brain\n    game"} />
 
       <ScrollView>
         <HomeGameCard
