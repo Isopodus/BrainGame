@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import { KeyboardAvoidingView } from "react-native";
 import Toast from "react-native-simple-toast";
 import SecureStorage from "react-native-secure-storage";
 import { Input } from "../../../../library/Atoms/Input";
@@ -17,11 +18,13 @@ export const AuthForm = ({ navigation, authMode, onSwitchPage }) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const onChange = useCallback(
     (name, value) => {
       if (name === "email") setEmail(value);
       if (name === "password") setPassword(value);
+      if (name === "username") setUsername(value);
     },
     [setEmail, setPassword],
   );
@@ -57,7 +60,7 @@ export const AuthForm = ({ navigation, authMode, onSwitchPage }) => {
         .catch(catchAuthError);
     } else {
       api
-        .register({ email, password, username: "Test" })
+        .register({ email, password, username })
         .then(data => {
           const user = data.data;
 
@@ -80,28 +83,41 @@ export const AuthForm = ({ navigation, authMode, onSwitchPage }) => {
 
   return (
     <VerticalLayout style={stylesWithTheme.form}>
-      <Input
-        name={"email"}
-        label={"Email"}
-        placeholder={"Enter your email"}
-        style={stylesWithTheme.input}
-        value={email}
-        onChange={onChange}
-      />
+      <KeyboardAvoidingView behavior={"height"} keyboardVerticalOffset={40}>
+        <Input
+          name={"email"}
+          label={"Email"}
+          placeholder={"Enter your email"}
+          style={stylesWithTheme.input}
+          value={email}
+          onChange={onChange}
+        />
 
-      <Input
-        name={"password"}
-        label={"Password"}
-        secureTextEntry={true}
-        placeholder={"Enter your password"}
-        style={stylesWithTheme.input}
-        value={password}
-        onChange={onChange}
-      />
+        {!authMode && (
+          <Input
+            name={"username"}
+            label={"Username"}
+            placeholder={"Enter your username"}
+            style={stylesWithTheme.input}
+            value={username}
+            onChange={onChange}
+          />
+        )}
 
-      <PrimaryButton title={"Submit"} style={stylesWithTheme.button} onPress={onSubmit} />
+        <Input
+          name={"password"}
+          label={"Password"}
+          secureTextEntry={true}
+          placeholder={"Enter your password"}
+          style={stylesWithTheme.input}
+          value={password}
+          onChange={onChange}
+        />
 
-      <BaseButton title={authMode ? "or Sign up" : "or Sign in"} onPress={onSwitchPage} />
+        <PrimaryButton title={"Submit"} style={stylesWithTheme.button} onPress={onSubmit} />
+
+        <BaseButton title={authMode ? "or Sign up" : "or Sign in"} onPress={onSwitchPage} />
+      </KeyboardAvoidingView>
     </VerticalLayout>
   );
 };

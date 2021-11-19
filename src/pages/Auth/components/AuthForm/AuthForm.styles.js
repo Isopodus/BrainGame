@@ -6,7 +6,7 @@ export const styles = ({ sizes }) => ({
     paddingHorizontal: "5%",
   },
   input: {
-    marginBottom: sizes.scale(40),
+    marginBottom: sizes.scale(20),
   },
   button: {
     marginTop: sizes.scale(30),

@@ -23,7 +23,7 @@ export const Rating = ({ navigation }) => {
   useEffect(() => {
     api.getLeaderboard(token).then(data => {
       const scores = Object.keys(data.data).map(key => data.data[key]);
-      setPlayerBestScore(scores.find(score => score.number === user.number).totalScore);
+      setPlayerBestScore(scores.find(score => score.number === user.number)?.totalScore ?? 0);
       setScores(scores);
     });
   }, [token]);
