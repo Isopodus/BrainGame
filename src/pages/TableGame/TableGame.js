@@ -10,6 +10,11 @@ import { useStylesWithTheme } from "../../hooks/useStylesWithTheme";
 import { Header } from "../../library/Molecules/Header";
 import { useSelector } from "react-redux";
 import { api } from "../../requests/api";
+// import { EndGameModal } from "../_common/EndGameModal/EndGameModal";
+// import { useOpenClose } from "../../hooks/useOpenClose";
+// import { Backdrop } from "../../library/Atoms/Backdrop";
+// import { useToggle } from "../../hooks/useToggle";
+// import { StartGameBackdrop } from "../_common/StartGameBackdrop/StartGameBackdrop";
 
 export const TableGame = ({ navigation, route }) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
@@ -23,6 +28,10 @@ export const TableGame = ({ navigation, route }) => {
   const [validSequence, setValidSequence] = useState([]);
   const [currentItemIdx, setCurrentItemIdx] = useState(0);
   const [mistakesCount, setMistakesCount] = useState(0);
+
+  // const [isEndGameModalOpen, openEndGameModal, closeEndGameModal] = useOpenClose(false);
+
+  // const [savingResultsLoading, toggleSavingResultsLoading] = useToggle(false);
 
   const generageGame = useCallback(generateLetters => {
     let items;
@@ -109,6 +118,8 @@ export const TableGame = ({ navigation, route }) => {
 
   return (
     <PageLayout>
+      {/* <StartGameBackdrop onUnmount={() => {}} /> */}
+
       <Header rounded>
         <Text style={stylesWithTheme.title}>Schulte table</Text>
         <View style={stylesWithTheme.animation}>
@@ -141,6 +152,10 @@ export const TableGame = ({ navigation, route }) => {
           </View>
         ))}
       </View>
+
+      {/* <EndGameModal open={isEndGameModalOpen} toggleModal={closeEndGameModal} gameNumber={0} isWinner /> */}
+
+      {/* {savingResultsLoading && <Backdrop />} */}
     </PageLayout>
   );
 };

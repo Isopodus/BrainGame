@@ -7,6 +7,11 @@ import { styles } from "./DrawGame.styles";
 import { colors } from "../../ui/colors";
 import { useSelector } from "react-redux";
 import { api } from "../../requests/api";
+// import { EndGameModal } from "../_common/EndGameModal/EndGameModal";
+// import { useOpenClose } from "../../hooks/useOpenClose";
+// import { Backdrop } from "../../library/Atoms/Backdrop";
+// import { useToggle } from "../../hooks/useToggle";
+// import { StartGameBackdrop } from "../_common/StartGameBackdrop/StartGameBackdrop";
 
 import SignatureCapture from "react-native-signature-capture";
 import Orientation from "react-native-orientation";
@@ -19,6 +24,10 @@ export const DrawGame = ({ navigation, route }) => {
   const [imagesTouched, setImagesTouched] = useState(0);
   const [checkDoubleTouch, setCheckDoubleTouch] = useState(false);
   const [outputImages, setOutputImages] = useState([null, null]);
+
+  // const [isEndGameModalOpen, openEndGameModal, closeEndGameModal] = useOpenClose(false);
+
+  // const [savingResultsLoading, toggleSavingResultsLoading] = useToggle(false);
 
   const image1ref = useRef();
   const image2ref = useRef();
@@ -109,8 +118,11 @@ export const DrawGame = ({ navigation, route }) => {
   }, [imagesTouched]);
 
   const image = require("../../assets/images/cookie.jpg");
+
   return (
     <PageLayout>
+      {/* <StartGameBackdrop onUnmount={() => {}} /> */}
+
       <View style={styles.container}>
         <View onTouchStart={incImagesTouched} onTouchEnd={decImagesTouched}>
           <ImageBackground style={styles.imageBox} source={image} resizeMode="cover">
@@ -146,6 +158,10 @@ export const DrawGame = ({ navigation, route }) => {
           {!isGameStarted && <View style={styles.drawBlocker}></View>}
         </View>
       </View>
+
+      {/* <EndGameModal open={isEndGameModalOpen} toggleModal={closeEndGameModal} gameNumber={1} isWinner /> */}
+
+      {/* {savingResultsLoading && <Backdrop />} */}
     </PageLayout>
   );
 };

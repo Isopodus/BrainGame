@@ -15,4 +15,9 @@ export const styles = ({ colors, fonts, sizes }) => ({
     width: sizes.scale(350),
     height: sizes.scale(350),
   },
+  text: {
+    fontFamily: fonts.primary,
+    fontSize: sizes.scale(200),
+    color: colors.white,
+  },
 });
