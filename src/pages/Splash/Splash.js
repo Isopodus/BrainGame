@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import SecureStorage from "react-native-secure-storage";
 import { api } from "../../requests/api";
 import { useDispatch } from "react-redux";
+import { setAction } from "../../../store";
 
 export const Splash = () => {
   const { navigate } = useNavigation();

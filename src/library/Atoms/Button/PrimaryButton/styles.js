@@ -16,4 +16,8 @@ export const styles = ({ colors, fonts, sizes }) => ({
     textAlign: "center",
     textTransform: "uppercase",
   },
+  spinner: {
+    width: sizes.scale(50),
+    height: sizes.scale(10),
+  },
 });

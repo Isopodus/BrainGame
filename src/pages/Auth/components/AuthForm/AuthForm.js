@@ -11,14 +11,20 @@ import { PrimaryButton } from "../../../../library/Atoms/Button/PrimaryButton";
 import { BaseButton } from "../../../../library/Atoms/Button/BaseButton";
 import { api } from "../../../../requests/api";
 import { setAction } from "../../../../../store";
+import { useToggle } from "../../../../hooks/useToggle";
+import { useNavigation } from "@react-navigation/native";
 
-export const AuthForm = ({ navigation, authMode, onSwitchPage }) => {
+export const AuthForm = ({ authMode, onSwitchPage }) => {
+  const { navigate } = useNavigation();
+
   const dispatch = useDispatch();
   const [stylesWithTheme] = useStylesWithTheme(styles);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+
+  const [submitting, toggleSubmitting] = useToggle(false);
 
   const onChange = useCallback(
     (name, value) => {
@@ -42,10 +48,14 @@ export const AuthForm = ({ navigation, authMode, onSwitchPage }) => {
   });
 
   const onSubmit = useCallback(() => {
+    toggleSubmitting();
+
     if (authMode) {
       api
         .login({ email, password })
         .then(data => {
+          toggleSubmitting();
+
           const token = data.data.token;
 
           // Save token to redux and storage
@@ -55,13 +65,18 @@ export const AuthForm = ({ navigation, authMode, onSwitchPage }) => {
           // Get user info and save to redux
           api.me(token).then(data => dispatch(setAction("user", data.data)));
           Toast.show("Signed in successfully!");
-          navigation.navigate("DrawerContainer");
+          navigate("DrawerContainer");
         })
-        .catch(catchAuthError);
+        .catch(err => {
+          toggleSubmitting();
+          catchAuthError(err);
+        });
     } else {
       api
         .register({ email, password, username })
         .then(data => {
+          toggleSubmitting();
+
           const user = data.data;
 
           api.login({ email, password }).then(data => {
@@ -74,10 +89,13 @@ export const AuthForm = ({ navigation, authMode, onSwitchPage }) => {
             // Save user info to redux
             dispatch(setAction("user", user));
             Toast.show("Signed up successfully!");
-            navigation.navigate("DrawerContainer");
+            navigate("DrawerContainer");
           });
         })
-        .catch(catchAuthError);
+        .catch(err => {
+          toggleSubmitting();
+          catchAuthError(err);
+        });
     }
   }, [email, password, authMode]);
 
@@ -114,7 +132,7 @@ export const AuthForm = ({ navigation, authMode, onSwitchPage }) => {
           onChange={onChange}
         />
 
-        <PrimaryButton title={"Submit"} style={stylesWithTheme.button} onPress={onSubmit} />
+        <PrimaryButton title={"Submit"} style={stylesWithTheme.button} onPress={onSubmit} loading={submitting} />
 
         <BaseButton title={authMode ? "or Sign up" : "or Sign in"} onPress={onSwitchPage} />
       </KeyboardAvoidingView>

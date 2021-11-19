@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { Text, View } from "react-native";
 import { useStylesWithTheme } from "../../../../hooks/useStylesWithTheme";
 import { styles } from "./HomeDifficultiesModal.styles";

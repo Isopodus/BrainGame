@@ -8,7 +8,7 @@ import { ProfileButtons } from "./components/ProfileButtons/ProfileButtons";
 import { styles } from "./Profile.styles";
 import { Header } from "../../library/Molecules/Header";
 
-export const Profile = ({ navigation }) => {
+export const Profile = () => {
   const [stylesWithTheme] = useStylesWithTheme(styles);
   const user = useSelector(state => state.user);
 
@@ -17,7 +17,7 @@ export const Profile = ({ navigation }) => {
       <Header title={"Player №"} subtitle={user.number} rounded />
       <ScrollView style={stylesWithTheme.page}>
         <ProfileTable user={user} />
-        <ProfileButtons user={user} navigation={navigation} />
+        <ProfileButtons user={user} />
       </ScrollView>
     </PageLayout>
   );
