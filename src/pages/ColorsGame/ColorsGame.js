@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, Text, TouchableHighlight, Vibration, ScrollView } from "react-native";
+import { View, Text, TouchableHighlight, Vibration } from "react-native";
 import { colorsGame } from "../../../constants";
 import { useGameTimer } from "../../hooks/useGameTimer";
 import { PageLayout } from "../../library/Layouts/PageLayout";

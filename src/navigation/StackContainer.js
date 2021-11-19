@@ -5,13 +5,14 @@ import { Auth } from "../pages/Auth/Auth";
 import { DrawerContainer } from "./DrawerContainer";
 import { TableGame } from "../pages/TableGame/TableGame";
 import { ColorsGame } from "../pages/ColorsGame/ColorsGame";
+import { DrawGame } from "../pages/DrawGame/DrawGame";
 
 const Stack = createStackNavigator();
 
 export const StackContainer = () => {
   return (
     <Stack.Navigator
-      initialRouteName={"ThirdGame"}
+      initialRouteName={"SecondGame"}
       screenOptions={{
         headerShown: false,
       }}
@@ -20,6 +21,7 @@ export const StackContainer = () => {
       <Stack.Screen name="DrawerContainer" component={DrawerContainer} />
       <Stack.Screen name="Auth" component={Auth} />
       <Stack.Screen name="FirstGame" component={TableGame} />
+      <Stack.Screen name="SecondGame" component={DrawGame} />
       <Stack.Screen name="ThirdGame" component={ColorsGame} />
     </Stack.Navigator>
   );
