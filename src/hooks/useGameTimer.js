@@ -25,10 +25,10 @@ export function useGameTimer(winCallback, looseCallback, gameTimeMs) {
 
   // Check if time is up
   useEffect(() => {
-    if (timeLeft - timeReduce <= 0) {
+    if (timeLeft - timeReduce <= 0 && isWinner === null) {
       setIsWinner(false);
     }
-  }, [timeLeft, timeReduce]);
+  }, [timeLeft, timeReduce, isWinner]);
 
   // Check if win state was changed from above and stop the timer, call win/loose callback
   useEffect(() => {
@@ -43,11 +43,5 @@ export function useGameTimer(winCallback, looseCallback, gameTimeMs) {
     }
   }, [isWinner]);
 
-  return [
-    isGameStarted,
-    timeLeft - timeReduce,
-    () => setGameStarted(true),
-    setIsWinner,
-    value => setTimeReduce(timeReduce + value),
-  ];
+  return [isGameStarted, timeLeft - timeReduce, () => setGameStarted(true), setIsWinner, isWinner];
 }

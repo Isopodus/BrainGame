@@ -38,5 +38,5 @@ export const api = {
   getLeaderboard: token => axios.get(`${url}/api/leaderboard`, getOptions(token)),
 
   // originalImage, drawnImage => distance
-  compareImages: (body, token) => axios.post(`${url}/api/leaderboard`, body, getOptions(token)),
+  compareImages: (body, token) => axios.post(`${url}/api/images/compare`, body, getOptions(token)),
 };

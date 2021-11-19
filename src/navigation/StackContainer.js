@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 export const StackContainer = () => {
   return (
     <Stack.Navigator
-      initialRouteName={"SecondGame"}
+      initialRouteName={"Preview"}
       screenOptions={{
         headerShown: false,
       }}

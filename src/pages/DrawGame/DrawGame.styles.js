@@ -9,8 +9,12 @@ export const styles = ({ sizes, colors, fonts }) => ({
     justifyContent: "center",
   },
   imageBox: {
-    width: sizes.scale(500),
-    height: sizes.scale(500),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  innerImageBox: {
+    flex: 1,
+    width: sizes.scale(250),
   },
   drawBlocker: {
     position: "absolute",
@@ -26,28 +30,26 @@ export const styles = ({ sizes, colors, fonts }) => ({
     paddingHorizontal: "2%",
   },
   title: {
-    paddingBottom: sizes.scale(20),
+    paddingBottom: sizes.scale(10),
 
     fontFamily: fonts.tematic,
-    fontSize: sizes.scale(55),
+    fontSize: sizes.scale(35),
     color: colors.white,
   },
   time: {
-    paddingBottom: sizes.scale(10),
-
     fontFamily: fonts.primary,
-    fontSize: sizes.scale(100),
+    fontSize: sizes.scale(40),
     color: colors.white,
   },
   button: {
-    marginTop: sizes.scale(50),
+    marginTop: sizes.scale(25),
     width: "100%",
   },
   buttonText: {
     fontSize: sizes.scale(30),
   },
   animation: {
-    width: sizes.scale(200),
-    height: sizes.scale(200),
+    width: sizes.scale(120),
+    height: sizes.scale(120),
   },
 });

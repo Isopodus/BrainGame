@@ -65,19 +65,16 @@ export const tableGame = [
 
 export const drawGame = [
   {
-    GAME_TIME_MS: 30000,
-    IMAGE_1: [],
-    IMAGE_2: [],
-  },
-  {
-    GAME_TIME_MS: 15000,
-    IMAGE_1: [],
-    IMAGE_2: [],
-  },
-  {
     GAME_TIME_MS: 20000,
-    IMAGE_1: [],
-    IMAGE_2: [],
+    IMAGES: ["circle", "D", "elipse", "rectangle", "triangle", "8", "U"],
+  },
+  {
+    GAME_TIME_MS: 30000,
+    IMAGES: ["S", "8", "teardrop", "P", "U", "rectangle", "6"],
+  },
+  {
+    GAME_TIME_MS: 60000,
+    IMAGES: ["star", "heart", "teardrop", "N", "G", "triangle", "8"],
   },
 ];
 

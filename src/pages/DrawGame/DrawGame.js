@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Text, ImageBackground, Vibration } from "react-native";
+import { View, Text, ImageBackground, Vibration, Image } from "react-native";
 import { drawGame } from "../../../constants";
 import { useGameTimer } from "../../hooks/useGameTimer";
 import { PageLayout } from "../../library/Layouts/PageLayout";
@@ -14,6 +14,9 @@ import SignatureCapture from "react-native-signature-capture";
 import Orientation from "react-native-orientation";
 import { RowLayout } from "../../library/Layouts/RowLayout";
 import { VerticalLayout } from "../../library/Layouts/VerticalLayout";
+import ImgToBase64 from "react-native-image-base64";
+import { bgSymbols } from "../../assets/images/bgSymbols/bgSymbols";
+import { symbols } from "../../assets/images/symbols/symbols";
 
 export const DrawGame = ({ navigation, route }) => {
   const config = drawGame[route.params.difficulty]; // Idx 0 defines level 1 of 3
@@ -24,34 +27,66 @@ export const DrawGame = ({ navigation, route }) => {
 
   const [imagesTouched, setImagesTouched] = useState(0);
   const [checkDoubleTouch, setCheckDoubleTouch] = useState(false);
-  const [outputImages, setOutputImages] = useState([null, null]);
+  const [inputImages, setInputImages] = useState([null, null]);
+  const [outputImages, setOutputImages] = useState([]);
 
   const image1ref = useRef();
   const image2ref = useRef();
 
   const countPoints = useCallback((multiplier, imagesDistance) => {
-    return (timeLeft / config.GAME_TIME_MS) * multiplier - imagesDistance * 300 + 300;
+    return (timeLeft / config.GAME_TIME_MS) * multiplier - (imagesDistance / 40) * 300 + 300;
   });
+
+  const compareImages = useCallback(
+    (isWinner, outputImages) => {
+      if (inputImages[0] !== null && inputImages[1] !== null) {
+        const uri1 = Image.resolveAssetSource(symbols[inputImages[0]]).uri;
+        const uri2 = Image.resolveAssetSource(symbols[inputImages[1]]).uri;
+        ImgToBase64.getBase64String(uri1).then(orig1 => {
+          ImgToBase64.getBase64String(uri2).then(orig2 => {
+            api.compareImages({ originalImage: orig1, drawnImage: outputImages[0] }, token).then(data1 => {
+              api.compareImages({ originalImage: orig2, drawnImage: outputImages[1] }, token).then(data2 => {
+                const avgDistance = (data1.data.distance + data2.data.distance) / 2;
+                console.log(avgDistance);
+                const looser = () => {
+                  api.closeSession({ score: countPoints(100, avgDistance) }, token).then(data => {
+                    navigation.navigate("Home", { newSession: data.data });
+                    Orientation.lockToPortrait();
+                  });
+                };
+
+                if (isWinner === true) {
+                  if (avgDistance >= 35) {
+                    looser();
+                  } else {
+                    api.updateSession({ score: countPoints(1000, avgDistance) }, token).then(data => {
+                      navigation.navigate("Home", { newSession: data.data });
+                      Orientation.lockToPortrait();
+                    });
+                  }
+                } else if (isWinner === false) {
+                  looser();
+                }
+              });
+            });
+          });
+        });
+      }
+    },
+    [inputImages],
+  );
 
   const handleLoose = useCallback(() => {
     Vibration.vibrate(1000);
-    api.closeSession({ score: countPoints(100, 0.5) }, token).then(data => {
-      navigation.navigate("Home", { newSession: null });
-      Orientation.lockToPortrait();
-    });
     // ------------------------------------------------------- TODO: Do the post-game LOOSE message
   });
 
   const handleWin = useCallback(() => {
     Vibration.vibrate([0, 50, 50, 50, 50, 200]);
-    api.updateSession({ score: countPoints(1000, 0) }, token).then(data => {
-      navigation.navigate("Home", { newSession: data.data });
-      Orientation.lockToPortrait();
-    });
     // ------------------------------------------------------- TODO: Do the post-game WIN message
   });
 
-  const [isGameStarted, timeLeft, onStartGame, onSetIsWinner, reduceTimeLeft] = useGameTimer(
+  const [isGameStarted, timeLeft, onStartGame, onSetIsWinner, isWinner] = useGameTimer(
     handleWin,
     handleLoose,
     config.GAME_TIME_MS,
@@ -66,12 +101,18 @@ export const DrawGame = ({ navigation, route }) => {
     }
   });
 
-  const onSaveImage = useCallback((imageIdx, base64) => {
-    const images = [...outputImages];
-    images[imageIdx] = base64;
-    setOutputImages(images);
-    console.log(images);
-  });
+  const onSaveImage = useCallback(
+    (imageIdx, base64) => {
+      const images = [...outputImages];
+      images[imageIdx] = base64.encoded;
+      setOutputImages(images);
+
+      if (images.length > 1) {
+        compareImages(isWinner, images);
+      }
+    },
+    [isWinner, outputImages],
+  );
 
   const incImagesTouched = useCallback(() => {
     setImagesTouched(imagesTouched + 1);
@@ -83,6 +124,16 @@ export const DrawGame = ({ navigation, route }) => {
 
   useEffect(() => {
     Orientation.lockToLandscape();
+
+    // Select random images from the list by difficulty
+    const imagesCopy = [...config.IMAGES];
+    const images = [];
+    const idx = Math.floor(Math.random() * imagesCopy.length);
+    images.push(imagesCopy[idx]);
+    imagesCopy.splice(idx, 1);
+    images.push(imagesCopy[Math.floor(Math.random() * imagesCopy.length)]);
+
+    setInputImages(images);
   }, []);
 
   useEffect(() => {
@@ -91,30 +142,25 @@ export const DrawGame = ({ navigation, route }) => {
     }
   }, [isGameStarted]);
 
-  //
   useEffect(() => {
     if (checkDoubleTouch) {
-      if (imagesTouched < 2) {
-        Vibration.vibrate(100);
-        reduceTimeLeft(1000);
-        // ------------------------------------------------------- TODO: Warn user he should hold two fingers
+      if (imagesTouched < 2 && isWinner === null) {
+        onSetIsWinner(false);
       }
       setCheckDoubleTouch(false);
     }
-  }, [checkDoubleTouch, imagesTouched]);
+  }, [checkDoubleTouch, imagesTouched, isWinner]);
 
   // Detect if we're touching one or two images
   useEffect(() => {
     if (imagesTouched === 1 && isGameStarted) {
-      setTimeout(() => setCheckDoubleTouch(true), 500);
-    } else if (imagesTouched === 2) {
-      if (!isGameStarted) {
-        onStartGame();
-      }
+      setTimeout(() => setCheckDoubleTouch(true), 1000);
+    } else if (imagesTouched === 2 && !isGameStarted) {
+      onStartGame();
     }
   }, [imagesTouched]);
 
-  const image = require("../../assets/images/cookie.png");
+  const cookie = require("../../assets/images/cookie.png");
   return (
     <PageLayout>
       <RowLayout style={stylesWithTheme.container}>
@@ -123,18 +169,24 @@ export const DrawGame = ({ navigation, route }) => {
           onTouchStart={incImagesTouched}
           onTouchEnd={decImagesTouched}
         >
-          <ImageBackground style={stylesWithTheme.imageBox} source={image} resizeMode="cover">
-            <SignatureCapture
-              ref={image1ref}
-              style={{ flex: 1 }}
-              strokeColor={theme.colors.pink}
-              minStrokeWidth={50}
-              backgroundColor="transparent"
-              showNativeButtons={false}
-              onSaveEvent={data => onSaveImage(0, data)}
-            />
+          <ImageBackground style={stylesWithTheme.imageBox} source={cookie} resizeMode={"center"}>
+            <ImageBackground
+              style={stylesWithTheme.innerImageBox}
+              source={bgSymbols[inputImages[0]]}
+              resizeMode={"center"}
+            >
+              <SignatureCapture
+                ref={image1ref}
+                style={{ flex: 1 }}
+                strokeColor={theme.colors.pink}
+                minStrokeWidth={50}
+                backgroundColor="transparent"
+                showNativeButtons={false}
+                onSaveEvent={data => onSaveImage(0, data)}
+              />
+            </ImageBackground>
           </ImageBackground>
-          {/* {!isGameStarted && <View style={stylesWithTheme.drawBlocker}></View>} */}
+          {!isGameStarted && <View style={stylesWithTheme.drawBlocker} />}
         </VerticalLayout>
         <VerticalLayout style={stylesWithTheme.timerBlock}>
           <Text style={stylesWithTheme.title}>Drawing</Text>
@@ -155,19 +207,25 @@ export const DrawGame = ({ navigation, route }) => {
           onTouchStart={incImagesTouched}
           onTouchEnd={decImagesTouched}
         >
-          <ImageBackground style={stylesWithTheme.imageBox} source={image} resizeMode="cover">
-            <SignatureCapture
-              ref={image2ref}
-              style={{ flex: 1 }}
-              strokeColor={theme.colors.pink}
-              minStrokeWidth={50}
-              backgroundColor="transparent"
-              showNativeButtons={false}
-              showTitleLabel={true}
-              onSaveEvent={data => onSaveImage(1, data)}
-            />
+          <ImageBackground style={stylesWithTheme.imageBox} source={cookie} resizeMode={"center"}>
+            <ImageBackground
+              style={stylesWithTheme.innerImageBox}
+              source={bgSymbols[inputImages[1]]}
+              resizeMode={"center"}
+            >
+              <SignatureCapture
+                ref={image2ref}
+                style={{ flex: 1 }}
+                strokeColor={theme.colors.pink}
+                minStrokeWidth={50}
+                backgroundColor="transparent"
+                showNativeButtons={false}
+                showTitleLabel={true}
+                onSaveEvent={data => onSaveImage(1, data)}
+              />
+            </ImageBackground>
           </ImageBackground>
-          {/* {!isGameStarted && <View style={stylesWithTheme.drawBlocker}></View>} */}
+          {!isGameStarted && <View style={stylesWithTheme.drawBlocker} />}
         </VerticalLayout>
       </RowLayout>
     </PageLayout>
