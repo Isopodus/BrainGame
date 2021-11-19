@@ -1,20 +1,26 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { View, Text, ImageBackground, Vibration, Button, TouchableOpacity } from "react-native";
+import { Text, ImageBackground, Vibration } from "react-native";
 import { drawGame } from "../../../constants";
 import { useGameTimer } from "../../hooks/useGameTimer";
 import { PageLayout } from "../../library/Layouts/PageLayout";
 import { styles } from "./DrawGame.styles";
-import { colors } from "../../ui/colors";
 import { useSelector } from "react-redux";
 import { api } from "../../requests/api";
+import { useStylesWithTheme } from "../../hooks/useStylesWithTheme";
+import { Animation } from "../../library/Atoms/Animations";
+import { PrimaryButton } from "../../library/Atoms/Button/PrimaryButton";
 
 import SignatureCapture from "react-native-signature-capture";
 import Orientation from "react-native-orientation";
+import { RowLayout } from "../../library/Layouts/RowLayout";
+import { VerticalLayout } from "../../library/Layouts/VerticalLayout";
 
 export const DrawGame = ({ navigation, route }) => {
   const config = drawGame[route.params.difficulty]; // Idx 0 defines level 1 of 3
 
   const token = useSelector(state => state.token);
+
+  const [stylesWithTheme, theme] = useStylesWithTheme(styles);
 
   const [imagesTouched, setImagesTouched] = useState(0);
   const [checkDoubleTouch, setCheckDoubleTouch] = useState(false);
@@ -108,34 +114,52 @@ export const DrawGame = ({ navigation, route }) => {
     }
   }, [imagesTouched]);
 
-  const image = require("../../assets/images/cookie.jpg");
+  const image = require("../../assets/images/cookie.png");
   return (
     <PageLayout>
-      <View style={styles.container}>
-        <View onTouchStart={incImagesTouched} onTouchEnd={decImagesTouched}>
-          <ImageBackground style={styles.imageBox} source={image} resizeMode="cover">
+      <RowLayout style={stylesWithTheme.container}>
+        <VerticalLayout
+          style={stylesWithTheme.imageContainer}
+          onTouchStart={incImagesTouched}
+          onTouchEnd={decImagesTouched}
+        >
+          <ImageBackground style={stylesWithTheme.imageBox} source={image} resizeMode="cover">
             <SignatureCapture
               ref={image1ref}
               style={{ flex: 1 }}
-              strokeColor={colors.pink}
+              strokeColor={theme.colors.pink}
               minStrokeWidth={50}
               backgroundColor="transparent"
               showNativeButtons={false}
               onSaveEvent={data => onSaveImage(0, data)}
             />
           </ImageBackground>
-          {!isGameStarted && <View style={styles.drawBlocker}></View>}
-        </View>
-        <View style={styles.timerBlock}>
-          <Text style={styles.timerText}>{timeLeft < 0 ? 0 : (timeLeft / 1000).toFixed(0)}</Text>
-          <Button title="Done" onPress={handlePressDone} disabled={!isGameStarted} />
-        </View>
-        <View onTouchStart={incImagesTouched} onTouchEnd={decImagesTouched}>
-          <ImageBackground style={styles.imageBox} source={image} resizeMode="cover">
+          {/* {!isGameStarted && <View style={stylesWithTheme.drawBlocker}></View>} */}
+        </VerticalLayout>
+        <VerticalLayout style={stylesWithTheme.timerBlock}>
+          <Text style={stylesWithTheme.title}>Drawing</Text>
+          <Animation name={"clock"} play={isGameStarted} style={stylesWithTheme.animation} />
+          <Text style={[stylesWithTheme.time, (timeLeft / 1000).toFixed(0) < 5 && { color: theme.colors.red }]}>
+            {timeLeft < 0 ? 0 : (timeLeft / 1000).toFixed(0)}
+          </Text>
+          <PrimaryButton
+            title={"Done"}
+            style={stylesWithTheme.button}
+            textStyle={stylesWithTheme.buttonText}
+            onPress={handlePressDone}
+            disabled={!isGameStarted}
+          />
+        </VerticalLayout>
+        <VerticalLayout
+          style={stylesWithTheme.imageContainer}
+          onTouchStart={incImagesTouched}
+          onTouchEnd={decImagesTouched}
+        >
+          <ImageBackground style={stylesWithTheme.imageBox} source={image} resizeMode="cover">
             <SignatureCapture
               ref={image2ref}
               style={{ flex: 1 }}
-              strokeColor={colors.pink}
+              strokeColor={theme.colors.pink}
               minStrokeWidth={50}
               backgroundColor="transparent"
               showNativeButtons={false}
@@ -143,9 +167,9 @@ export const DrawGame = ({ navigation, route }) => {
               onSaveEvent={data => onSaveImage(1, data)}
             />
           </ImageBackground>
-          {!isGameStarted && <View style={styles.drawBlocker}></View>}
-        </View>
-      </View>
+          {/* {!isGameStarted && <View style={stylesWithTheme.drawBlocker}></View>} */}
+        </VerticalLayout>
+      </RowLayout>
     </PageLayout>
   );
 };

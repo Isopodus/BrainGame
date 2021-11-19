@@ -3,7 +3,7 @@ import { Text, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import { useStylesWithTheme } from "../../../../hooks/useStylesWithTheme";
 
-export const PrimaryButton = ({ title, style, disabled = false, secondaryColor = false, onPress }) => {
+export const PrimaryButton = ({ title, style, textStyle, disabled = false, secondaryColor = false, onPress }) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
   return (
     <TouchableOpacity
@@ -15,7 +15,7 @@ export const PrimaryButton = ({ title, style, disabled = false, secondaryColor =
       ]}
       onPress={onPress}
     >
-      <Text style={stylesWithTheme.title}>{title}</Text>
+      <Text style={[stylesWithTheme.title, textStyle]}>{title}</Text>
     </TouchableOpacity>
   );
 };

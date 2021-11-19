@@ -1,16 +1,16 @@
-import { scale } from "../../ui/size";
-
-export const styles = {
+export const styles = ({ sizes, colors, fonts }) => ({
   container: {
     flex: 1,
-    flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: scale(30),
+    alignItems: "stretch",
+    paddingHorizontal: "0.5%",
+  },
+  imageContainer: {
+    justifyContent: "center",
   },
   imageBox: {
-    width: scale(200),
-    height: scale(200),
+    width: sizes.scale(500),
+    height: sizes.scale(500),
   },
   drawBlocker: {
     position: "absolute",
@@ -22,11 +22,32 @@ export const styles = {
   },
   timerBlock: {
     flex: 1,
-    flexDirection: "column",
-    paddingHorizontal: scale(30),
+    justifyContent: "center",
+    paddingHorizontal: "2%",
   },
-  timerText: {
-    fontSize: 110,
-    textAlign: "center",
+  title: {
+    paddingBottom: sizes.scale(20),
+
+    fontFamily: fonts.tematic,
+    fontSize: sizes.scale(55),
+    color: colors.white,
   },
-};
+  time: {
+    paddingBottom: sizes.scale(10),
+
+    fontFamily: fonts.primary,
+    fontSize: sizes.scale(100),
+    color: colors.white,
+  },
+  button: {
+    marginTop: sizes.scale(50),
+    width: "100%",
+  },
+  buttonText: {
+    fontSize: sizes.scale(30),
+  },
+  animation: {
+    width: sizes.scale(200),
+    height: sizes.scale(200),
+  },
+});
