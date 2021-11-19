@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 export function useGameTimer(winCallback, looseCallback, gameTimeMs) {
   const interval = useRef();
+
   const [isGameStarted, setGameStarted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(gameTimeMs);
   const [timeReduce, setTimeReduce] = useState(0);
@@ -25,8 +26,7 @@ export function useGameTimer(winCallback, looseCallback, gameTimeMs) {
   // Check if time is up
   useEffect(() => {
     if (timeLeft - timeReduce <= 0) {
-      clearInterval(interval.current);
-      looseCallback();
+      setIsWinner(false);
     }
   }, [timeLeft, timeReduce]);
 
@@ -35,9 +35,11 @@ export function useGameTimer(winCallback, looseCallback, gameTimeMs) {
     if (isWinner === true) {
       clearInterval(interval.current);
       winCallback();
+      setGameStarted(false);
     } else if (isWinner === false) {
       clearInterval(interval.current);
       looseCallback();
+      setGameStarted(false);
     }
   }, [isWinner]);
 

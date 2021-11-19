@@ -1,10 +1,26 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import LottieView from "lottie-react-native";
 import piggyBank from "../../../assets/animations/piggy-bank.json";
+import clock from "../../../assets/animations/clock.json";
 
-export const Animation = ({ name, style }) => {
+export const Animation = ({ name, style, play = true }) => {
+  const ref = useRef(null);
+
   const animation = useMemo(() => {
-    if (name === "piggy-bank") return piggyBank;
+    switch (name) {
+      case "piggy-bank":
+        return piggyBank;
+      default:
+        return clock;
+    }
   }, [name]);
-  return <LottieView style={style} source={animation} autoPlay loop resizeMode={"cover"} />;
+
+  useEffect(() => {
+    if (!ref?.current) return;
+
+    if (play) ref.current.play();
+    else ref.current.pause();
+  }, [ref, play]);
+
+  return <LottieView ref={ref} style={style} source={animation} resizeMode={"cover"} />;
 };

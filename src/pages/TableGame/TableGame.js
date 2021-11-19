@@ -1,13 +1,18 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, TouchableHighlight, Vibration } from "react-native";
 import { tableGame } from "../../../constants";
 import { useGameTimer } from "../../hooks/useGameTimer";
 import { PageLayout } from "../../library/Layouts/PageLayout";
 import { styles } from "./TableGame.styles";
 import Orientation from "react-native-orientation";
+import { Animation } from "../../library/Atoms/Animations";
+import { useStylesWithTheme } from "../../hooks/useStylesWithTheme";
+import { Header } from "../../library/Molecules/Header";
 
 export const TableGame = () => {
-  const config = tableGame[1]; // Idx 0 defines level 1 of 3
+  const [stylesWithTheme, theme] = useStylesWithTheme(styles);
+
+  const config = tableGame[2]; // Idx 0 defines level 1 of 3
   const totalItemsCount = config.SQUARE_SIZE * config.SQUARE_SIZE;
 
   const [sequence, setSequence] = useState([]);
@@ -96,28 +101,32 @@ export const TableGame = () => {
 
   return (
     <PageLayout>
-      <Text style={styles.headerText}>Schulte table</Text>
-      <Text style={styles.explanationText}>
-        Press the buttons in the valid order until the time is up. You are allowed to have 3 mistakes before you loose.
-        The timer starts as you press on any number.
+      <Header rounded>
+        <Text style={stylesWithTheme.title}>Schulte table</Text>
+        <View style={stylesWithTheme.animation}>
+          <Animation name={"clock"} play={isGameStarted} />
+        </View>
+        <Text style={[stylesWithTheme.time, (timeLeft / 1000).toFixed(2) < 5 && { color: theme.colors.red }]}>
+          {timeLeft < 0 ? (0).toFixed(2) : (timeLeft / 1000).toFixed(2)}
+        </Text>
+      </Header>
+      <Text style={[stylesWithTheme.mistakes, mistakesCount > 0 && { color: theme.colors.red }]}>
+        Mistakes: {mistakesCount}
       </Text>
-      <Text style={styles.timerText}>{timeLeft < 0 ? (0).toFixed(2) : (timeLeft / 1000).toFixed(2)}</Text>
-      <Text style={styles.mistakesText}>Mistakes: {mistakesCount}</Text>
-      <View style={styles.gridContainer}>
+      <View style={stylesWithTheme.gridContainer}>
         {range.map((_, rowIdx) => (
-          <View key={rowIdx} style={styles.row}>
+          <View key={rowIdx} style={stylesWithTheme.row}>
             {range.map((_, colIdx) => {
               const numIdx = colIdx + config.SQUARE_SIZE * rowIdx;
               const isValid = validSequence[currentItemIdx] > sequence[numIdx] || currentItemIdx >= totalItemsCount;
               return (
                 <TouchableHighlight
                   key={colIdx}
-                  style={{ ...styles.cell, ...(isValid ? styles.validCell : {}) }}
+                  style={[stylesWithTheme.cell, isValid && { backgroundColor: theme.colors.pink }]}
                   activeOpacity={0.7}
-                  onPress={() => onCellPress(sequence[numIdx])}>
-                  <View style={styles.innerCell}>
-                    <Text style={styles.cellText}>{sequence[numIdx]}</Text>
-                  </View>
+                  onPress={() => onCellPress(sequence[numIdx])}
+                >
+                  <Text style={stylesWithTheme.cellText}>{sequence[numIdx]}</Text>
                 </TouchableHighlight>
               );
             })}
