@@ -5,10 +5,6 @@ import { StackContainer } from "./src/navigation/StackContainer";
 const App = () => {
   const navigationRef = useRef();
 
-  // useEffect(() => {
-  //   navigationRef.current.navigate("Home");
-  // }, []);
-
   return (
     <NavigationContainer ref={navigationRef}>
       <StackContainer />
