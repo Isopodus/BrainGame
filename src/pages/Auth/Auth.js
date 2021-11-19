@@ -14,7 +14,7 @@ export const Auth = ({ navigation }) => {
 
   return (
     <PageLayout>
-      <Header title={isLogin ? "Sign in" : "Sign up"} navigation={navigation} />
+      <Header title={isLogin ? "Sign in" : "Sign up"} navigation={navigation} showEqual={false} />
 
       <AuthForm navigation={navigation} authMode={isLogin} onSwitchPage={isLogin ? openSignIn : openLogin} />
 
