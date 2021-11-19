@@ -13,7 +13,7 @@ export const styles = ({ sizes, colors, fonts }) => ({
   containerRounded: {
     position: "absolute",
     flex: 1,
-    top: "-35%",
+    top: -(sizes.fullWidth + sizes.scale(30)) / sizes.scale(2.3),
     left: sizes.scale(-15),
     width: sizes.fullWidth + sizes.scale(30),
     height: sizes.fullWidth + sizes.scale(30),
@@ -66,6 +66,6 @@ export const styles = ({ sizes, colors, fonts }) => ({
     color: colors.blue,
   },
   margin: {
-    height: sizes.fullWidth * 0.65,
+    height: sizes.fullWidth * 0.6,
   },
 });

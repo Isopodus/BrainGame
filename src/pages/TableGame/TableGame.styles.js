@@ -1,12 +1,34 @@
-import { scale, fullWidth } from "../../ui/size";
-import { colors } from "../../ui/colors";
+export const styles = ({ sizes, colors, fonts }) => ({
+  animation: {
+    width: sizes.scale(140),
+    height: sizes.scale(140),
+  },
+  title: {
+    paddingBottom: sizes.scale(5),
 
-export const styles = {
+    fontFamily: fonts.tematic,
+    fontSize: sizes.scale(30),
+    color: colors.blue,
+  },
+  time: {
+    paddingBottom: sizes.scale(10),
+
+    fontFamily: fonts.primary,
+    fontSize: sizes.scale(30),
+    color: colors.dark,
+  },
+  mistakes: {
+    fontFamily: fonts.primary,
+    fontSize: sizes.scale(28),
+    color: colors.white,
+    textAlign: "center",
+  },
   gridContainer: {
     flex: 1,
-    width: fullWidth,
-    height: fullWidth,
-    padding: 30,
+    width: sizes.fullWidth,
+    minHeight: sizes.fullWidth,
+    maxHeight: sizes.fullWidth + sizes.scale(30),
+    padding: sizes.scale(30),
   },
   row: {
     flex: 1,
@@ -14,39 +36,19 @@ export const styles = {
   },
   cell: {
     flex: 1,
-    margin: 1,
-    backgroundColor: colors.dark,
     justifyContent: "center",
     alignItems: "center",
-  },
-  innerCell: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  validCell: {
-    backgroundColor: colors.pink,
+    margin: sizes.scale(4),
+
+    borderWidth: sizes.scale(4),
+    borderColor: colors.white,
+    borderStyle: "solid",
+
+    backgroundColor: colors.blue,
   },
   cellText: {
-    fontSize: 20,
+    fontFamily: fonts.primary,
+    fontSize: sizes.scale(35),
+    color: colors.white,
   },
-  headerText: {
-    fontSize: 48,
-    textAlign: "center",
-    marginTop: scale(10),
-  },
-  explanationText: {
-    fontSize: 18,
-    padding: scale(10),
-    textAlign: "center",
-  },
-  timerText: {
-    fontSize: 130,
-    textAlign: "center",
-  },
-  mistakesText: {
-    fontSize: 20,
-    textAlign: "center",
-  },
-};
+});

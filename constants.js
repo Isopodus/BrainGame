@@ -50,7 +50,7 @@ export const tableGame = [
   },
   {
     GAME_TIME_MS: 15000,
-    SQUARE_SIZE: 2,
+    SQUARE_SIZE: 5,
     LETTERS_MODE: false,
   },
   {
