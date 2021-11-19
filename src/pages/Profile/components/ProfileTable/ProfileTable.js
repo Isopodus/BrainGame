@@ -5,7 +5,7 @@ import { styles } from "./ProfileTable.styles";
 import { VerticalLayout } from "../../../../library/Layouts/VerticalLayout";
 import { RowLayout } from "../../../../library/Layouts/RowLayout";
 
-export const ProfileTable = () => {
+export const ProfileTable = ({ user }) => {
   const [stylesWithTheme] = useStylesWithTheme(styles);
 
   return (
@@ -17,8 +17,8 @@ export const ProfileTable = () => {
           <Text style={stylesWithTheme.columnName}>Email: </Text>
         </VerticalLayout>
         <VerticalLayout style={stylesWithTheme.column}>
-          <Text style={stylesWithTheme.columnText}>unknown</Text>
-          <Text style={stylesWithTheme.columnText}>unknown@gmail.com</Text>
+          <Text style={stylesWithTheme.columnText}>{user.username}</Text>
+          <Text style={stylesWithTheme.columnText}>{user.email}</Text>
         </VerticalLayout>
       </RowLayout>
     </VerticalLayout>

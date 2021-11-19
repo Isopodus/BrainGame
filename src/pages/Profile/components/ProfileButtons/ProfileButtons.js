@@ -1,22 +1,32 @@
 import React, { useCallback, useState } from "react";
+import SecureStorage from "react-native-secure-storage";
 import { useStylesWithTheme } from "../../../../hooks/useStylesWithTheme";
+import { useDispatch } from "react-redux";
 import { styles } from "./ProfileButtons.styles";
 import { VerticalLayout } from "../../../../library/Layouts/VerticalLayout";
 import { PrimaryButton } from "../../../../library/Atoms/Button/PrimaryButton";
 import { BaseButton } from "../../../../library/Atoms/Button/BaseButton";
-import { View } from "react-native";
+import { store, setAction } from "../../../../../store";
+import { api } from "../../../../requests/api";
 
-export const ProfileButtons = ({ navigation }) => {
+export const ProfileButtons = ({ user, navigation }) => {
+  const dispatch = useDispatch();
   const [stylesWithTheme] = useStylesWithTheme(styles);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const onPressBack = useCallback(navigation.goBack);
   const onPressAuth = useCallback(() => navigation.navigate("Auth"));
+  const onPressLogout = useCallback(() => {
+    api.logout(store.getState().token).then(() => {
+      dispatch(setAction("user", null));
+      dispatch(setAction("token", null));
+      SecureStorage.removeItem("token");
+      navigation.navigate("Preview");
+    });
+  });
 
   return (
     <VerticalLayout style={stylesWithTheme.container}>
-      {!isLoggedIn && (
+      {!user && (
         <PrimaryButton
           title={"Log in or Sign up"}
           style={stylesWithTheme.button}
@@ -24,8 +34,10 @@ export const ProfileButtons = ({ navigation }) => {
           onPress={onPressAuth}
         />
       )}
-      <PrimaryButton title={"Move to score table"} style={stylesWithTheme.button} secondaryColor />
-      {isLoggedIn && <PrimaryButton title={"Log out"} style={stylesWithTheme.button} secondaryColor />}
+      <PrimaryButton title={"Leaderboard"} style={stylesWithTheme.button} secondaryColor />
+      {user && (
+        <PrimaryButton title={"Log out"} style={stylesWithTheme.button} secondaryColor onPress={onPressLogout} />
+      )}
       <BaseButton title={"Back to the game"} style={stylesWithTheme.button} onPress={onPressBack} />
     </VerticalLayout>
   );

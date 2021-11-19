@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 import { styles } from "./styles";
 import { useStylesWithTheme } from "../../../hooks/useStylesWithTheme";
 
-export const Input = ({ name, value, label, placeholder, onChange, style }) => {
+export const Input = ({ name, value, label, placeholder, onChange, style, secureTextEntry }) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
 
   const handleChange = useCallback(newValue => onChange(name, newValue), [name, onChange]);
@@ -15,6 +15,7 @@ export const Input = ({ name, value, label, placeholder, onChange, style }) => {
         placeholder={placeholder}
         placeholderTextColor={theme.colors.rgba(theme.colors.white, 0.6)}
         value={value}
+        secureTextEntry={secureTextEntry}
         style={stylesWithTheme.input}
         onChangeText={handleChange}
       />

@@ -10,13 +10,13 @@ import { AuthForm } from "./components/AuthForm/AuthForm";
 export const Auth = ({ navigation }) => {
   const [stylesWithTheme] = useStylesWithTheme(styles);
 
-  const [isLogin, openLogin, openSignIn] = useOpenClose(false);
+  const [isLogin, openLogin, openSignIn] = useOpenClose(true);
 
   return (
     <PageLayout>
-      <Header title={isLogin ? "Log in" : "Sign in"} navigation={navigation} />
+      <Header title={isLogin ? "Sign in" : "Sign up"} navigation={navigation} />
 
-      <AuthForm authMode={isLogin} onSwitchPage={isLogin ? openSignIn : openLogin} />
+      <AuthForm navigation={navigation} authMode={isLogin} onSwitchPage={isLogin ? openSignIn : openLogin} />
 
       <View style={stylesWithTheme.bottomCircle} />
     </PageLayout>

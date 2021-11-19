@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 export const StackContainer = () => {
   return (
     <Stack.Navigator
-      initialRouteName={"DrawerContainer"}
+      initialRouteName={"Preview"}
       screenOptions={{
         headerShown: false,
       }}
