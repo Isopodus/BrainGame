@@ -14,7 +14,11 @@ export const Profile = () => {
 
   return (
     <PageLayout profileMode>
-      <Header title={"Player №"} subtitle={user.number} rounded />
+      <Header
+        title={"Player №"}
+        subtitle={user.number.toString().length < 3 ? `0${user.number}` : user.number}
+        rounded
+      />
       <ScrollView style={stylesWithTheme.page}>
         <ProfileTable user={user} />
         <ProfileButtons user={user} />

@@ -33,7 +33,7 @@ export const RatingPlayerScore = ({ scores, playerBestScore }) => {
                 stylesWithTheme.text,
               ]}
             >
-              {scoreRow.number}
+              {scoreRow.number.toString().length < 3 ? `0${scoreRow.number}` : scoreRow.number}
             </Text>
             <Text style={[stylesWithTheme.scoreColumn, stylesWithTheme.headers, stylesWithTheme.text]}>
               {scoreRow.totalScore}
