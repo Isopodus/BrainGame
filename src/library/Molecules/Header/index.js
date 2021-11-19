@@ -7,7 +7,7 @@ import { RowLayout } from "../../Layouts/RowLayout";
 import { Icon } from "../../Atoms/Icons";
 import { VerticalLayout } from "../../Layouts/VerticalLayout";
 
-export const Header = ({ title, subtitle, rounded = false, children }) => {
+export const Header = ({ title, subtitle, rounded = false, children, navigation }) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
   if (rounded) {
     return (
@@ -35,7 +35,12 @@ export const Header = ({ title, subtitle, rounded = false, children }) => {
           colors={[theme.colors.rgba(theme.colors.blue, 1), theme.colors.rgba(theme.colors.blue, 0)]}
         >
           <View style={stylesWithTheme.circle}>
-            <Icon name={"equal"} size={theme.sizes.scale(50)} color={theme.colors.dark} />
+            <Icon
+              name={"equal"}
+              size={theme.sizes.scale(50)}
+              color={theme.colors.dark}
+              onPress={navigation.openDrawer}
+            />
           </View>
           <RowLayout>
             <Text style={stylesWithTheme.title}>{title}</Text>

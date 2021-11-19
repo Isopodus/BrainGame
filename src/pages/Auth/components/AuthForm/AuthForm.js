@@ -42,7 +42,7 @@ export const AuthForm = ({ authMode, onSwitchPage }) => {
 
       <PrimaryButton title={"Submit"} style={stylesWithTheme.button} />
 
-      <BaseButton title={authMode ? "or Sign in" : "or Log in"} onClick={onSwitchPage} />
+      <BaseButton title={authMode ? "or Sign in" : "or Log in"} onPress={onSwitchPage} />
     </VerticalLayout>
   );
 };
