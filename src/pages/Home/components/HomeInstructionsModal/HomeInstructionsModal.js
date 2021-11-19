@@ -44,12 +44,12 @@ export const HomeInstructionsModal = ({ open, startGame, resetGame, toggleModal,
     );
   }
   return (
-    <Popup title={`Game ${gameNumber}`} open={open}>
+    <Popup title={`Game ${gameNumber + 1}`} open={open}>
       <ScrollView>
         <Text style={stylesWithTheme.setting}>{GAMES_DESCIPTIONS[gameNumber].setting}</Text>
         <Accordion title={"About the game"}>
           <Text style={stylesWithTheme.description}>
-            Game {gameNumber} - {GAMES_DESCIPTIONS[gameNumber].description}
+            Game {gameNumber + 1} - {GAMES_DESCIPTIONS[gameNumber].description}
           </Text>
         </Accordion>
         <Accordion title={"Rules"}>
