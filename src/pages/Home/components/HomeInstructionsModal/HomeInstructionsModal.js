@@ -12,7 +12,7 @@ import { HomeShapeSquare } from "../HomeGameCard/HomeShapes/HomeShapeSquare";
 import { HomeShapeTriangle } from "../HomeGameCard/HomeShapes/HomeShapeTriangle";
 import { Accordion } from "../../../../library/Molecules/Accordion";
 
-export const HomeInstructionsModal = ({ open, toggleModal, disabled, completed, gameNumber }) => {
+export const HomeInstructionsModal = ({ open, startGame, resetGame, toggleModal, disabled, completed, gameNumber }) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
 
   const Figure = useMemo(() => {
@@ -46,14 +46,14 @@ export const HomeInstructionsModal = ({ open, toggleModal, disabled, completed, 
   return (
     <Popup title={`Game ${gameNumber}`} open={open}>
       <ScrollView>
-        <Text style={stylesWithTheme.setting}>{GAMES_DESCIPTIONS[gameNumber - 1].setting}</Text>
+        <Text style={stylesWithTheme.setting}>{GAMES_DESCIPTIONS[gameNumber].setting}</Text>
         <Accordion title={"About the game"}>
           <Text style={stylesWithTheme.description}>
-            Game {gameNumber} - {GAMES_DESCIPTIONS[gameNumber - 1].description}
+            Game {gameNumber} - {GAMES_DESCIPTIONS[gameNumber].description}
           </Text>
         </Accordion>
         <Accordion title={"Rules"}>
-          {GAMES_DESCIPTIONS[gameNumber - 1].rules.map((rule, index) => (
+          {GAMES_DESCIPTIONS[gameNumber].rules.map((rule, index) => (
             <Text key={`${rule}-${index}`} style={stylesWithTheme.description}>
               - {rule}
             </Text>
@@ -61,8 +61,14 @@ export const HomeInstructionsModal = ({ open, toggleModal, disabled, completed, 
         </Accordion>
       </ScrollView>
       <VerticalLayout style={stylesWithTheme.footer}>
-        <PrimaryButton title="Start game" style={stylesWithTheme.firstButton} />
-        {gameNumber !== 1 && <PrimaryButton title="Reset" style={{ backgroundColor: theme.colors.blue }} />}
+        <PrimaryButton title="Start game" style={stylesWithTheme.firstButton} onPress={startGame} />
+        {gameNumber !== 0 && (
+          <PrimaryButton
+            title="Reset game session"
+            style={{ backgroundColor: theme.colors.blue }}
+            onPress={resetGame}
+          />
+        )}
         <BaseButton title={"Cancel"} onPress={toggleModal} />
       </VerticalLayout>
     </Popup>

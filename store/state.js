@@ -6,6 +6,13 @@ const initialState = {
     email: "",
     number: null,
   },
+  session: {
+    sessionId: null,
+    sessionStatus: null,
+    sessionStage: null,
+    sessionTotalScore: null,
+    sessionDifficulty: null,
+  },
 };
 
 export default initialState;

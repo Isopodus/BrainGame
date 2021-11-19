@@ -8,10 +8,10 @@ import { Popup } from "../../../../library/Molecules/Popup";
 import { BaseButton } from "../../../../library/Atoms/Button/BaseButton";
 import { RadioButtonsGroup } from "../../../../library/Molecules/RadioButtonsGroup";
 
-export const HomeDifficultiesModal = ({ open, toggleModal }) => {
+export const HomeDifficultiesModal = ({ open, toggleModal, applyDifficulty }) => {
   const [stylesWithTheme] = useStylesWithTheme(styles);
 
-  const [difficulty, setDifficulty] = useState("easy");
+  const [difficulty, setDifficulty] = useState(0);
 
   return (
     <Popup title={"Difficulty"} open={open}>
@@ -22,15 +22,15 @@ export const HomeDifficultiesModal = ({ open, toggleModal }) => {
         <RadioButtonsGroup
           value={difficulty}
           options={[
-            { label: "Easy", name: "easy" },
-            { label: "Normal", name: "normal" },
-            { label: "Hard", name: "hard" },
+            { label: "Easy", name: 0 },
+            { label: "Normal", name: 1 },
+            { label: "Hard", name: 2 },
           ]}
           onChange={setDifficulty}
         />
       </View>
       <VerticalLayout style={stylesWithTheme.footer}>
-        <PrimaryButton title="Apply difficuly" />
+        <PrimaryButton title="Apply difficuly" onPress={() => applyDifficulty(difficulty)} />
         <BaseButton title="Cancel" onPress={toggleModal} />
       </VerticalLayout>
     </Popup>

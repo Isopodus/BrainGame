@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import SecureStorage from "react-native-secure-storage";
 import { useStylesWithTheme } from "../../../../hooks/useStylesWithTheme";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./ProfileButtons.styles";
 import { VerticalLayout } from "../../../../library/Layouts/VerticalLayout";
 import { PrimaryButton } from "../../../../library/Atoms/Button/PrimaryButton";
@@ -11,12 +11,13 @@ import { api } from "../../../../requests/api";
 
 export const ProfileButtons = ({ user, navigation }) => {
   const dispatch = useDispatch();
+  const token = useSelector(state => state.token);
   const [stylesWithTheme] = useStylesWithTheme(styles);
 
   const onPressBack = useCallback(navigation.goBack);
   const onPressAuth = useCallback(() => navigation.navigate("Auth"));
   const onPressLogout = useCallback(() => {
-    api.logout(store.getState().token).then(() => {
+    api.logout(token).then(() => {
       dispatch(setAction("user", null));
       dispatch(setAction("token", null));
       SecureStorage.removeItem("token");
@@ -26,7 +27,7 @@ export const ProfileButtons = ({ user, navigation }) => {
 
   return (
     <VerticalLayout style={stylesWithTheme.container}>
-      {!user && (
+      {!user.id && (
         <PrimaryButton
           title={"Log in or Sign up"}
           style={stylesWithTheme.button}
@@ -35,7 +36,7 @@ export const ProfileButtons = ({ user, navigation }) => {
         />
       )}
       <PrimaryButton title={"Leaderboard"} style={stylesWithTheme.button} secondaryColor />
-      {user && (
+      {user.id && (
         <PrimaryButton title={"Log out"} style={stylesWithTheme.button} secondaryColor onPress={onPressLogout} />
       )}
       <BaseButton title={"Back to the game"} style={stylesWithTheme.button} onPress={onPressBack} />

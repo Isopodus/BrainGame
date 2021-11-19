@@ -12,7 +12,16 @@ import { useOpenClose } from "../../../../hooks/useOpenClose";
 import { HomeDifficultiesModal } from "../HomeDifficultiesModal/HomeDifficultiesModal";
 import { HomeInstructionsModal } from "../HomeInstructionsModal/HomeInstructionsModal";
 
-export const HomeGameCard = ({ style, title, reverse = false, disabled, completed, gameNumber = 1 }) => {
+export const HomeGameCard = ({
+  style,
+  title,
+  reverse = false,
+  disabled,
+  completed,
+  gameNumber = 0,
+  onApplyDifficulty,
+  onResetGame,
+}) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
 
   const [isDifficultiesModalOpen, openDifficultiesModal, closeDifficultiesModal] = useOpenClose(false);
@@ -60,12 +69,18 @@ export const HomeGameCard = ({ style, title, reverse = false, disabled, complete
       <HomeInstructionsModal
         open={isInstructionsModalOpen}
         toggleModal={closeInstructionsModal}
+        startGame={gameNumber === 0 ? openDifficultiesModal : () => onApplyDifficulty(null, gameNumber)}
+        resetGame={onResetGame}
         gameNumber={gameNumber}
         disabled={disabled}
         completed={completed}
       />
 
-      <HomeDifficultiesModal open={isDifficultiesModalOpen} toggleModal={closeDifficultiesModal} />
+      <HomeDifficultiesModal
+        open={isDifficultiesModalOpen}
+        toggleModal={closeDifficultiesModal}
+        applyDifficulty={difficulty => onApplyDifficulty(difficulty, gameNumber)}
+      />
     </>
   );
 };
