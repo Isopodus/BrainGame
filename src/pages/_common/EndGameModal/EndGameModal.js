@@ -6,8 +6,9 @@ import { VerticalLayout } from "../../../library/Layouts/VerticalLayout";
 import { PrimaryButton } from "../../../library/Atoms/Button/PrimaryButton";
 import { Popup } from "../../../library/Molecules/Popup";
 import { useNavigation } from "@react-navigation/native";
+import { RowLayout } from "../../../library/Layouts/RowLayout";
 
-export const EndGameModal = ({ open, toggleModal, isWinner, gameNumber }) => {
+export const EndGameModal = ({ open, toggleModal, isWinner, gameNumber, verticalMode }) => {
   const { navigate } = useNavigation();
 
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
@@ -19,18 +20,38 @@ export const EndGameModal = ({ open, toggleModal, isWinner, gameNumber }) => {
 
   return (
     <Popup title={`Game ${gameNumber + 1}`} open={open}>
-      <View>
-        <Text style={stylesWithTheme.statusSecondaryText}>
-          {isWinner ? "Congratulations, you" : "Unfortunately, you"}
-        </Text>
-        <Text style={[stylesWithTheme.statusMainText, !isWinner && { color: theme.colors.red }]}>
-          {isWinner ? "won!" : "lost :("}
-        </Text>
-      </View>
-      <View>
-        <Text style={stylesWithTheme.scoreText}>Your score is:</Text>
-        <Text style={stylesWithTheme.scoreValue}>20</Text>
-      </View>
+      {verticalMode ? (
+        <RowLayout style={{ paddingHorizontal: "1%", alignContent: "space-between" }}>
+          <View style={{ flex: 1 }}>
+            <Text style={stylesWithTheme.statusSecondaryText}>
+              {isWinner ? "Congratulations, you" : "Unfortunately, you"}
+            </Text>
+            <Text style={[stylesWithTheme.statusMainText, !isWinner && { color: theme.colors.red }]}>
+              {isWinner ? "won!" : "lost :("}
+            </Text>
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text style={stylesWithTheme.scoreText}>Your score is:</Text>
+            <Text style={stylesWithTheme.scoreValue}>20</Text>
+          </View>
+        </RowLayout>
+      ) : (
+        <>
+          <View>
+            <Text style={stylesWithTheme.statusSecondaryText}>
+              {isWinner ? "Congratulations, you" : "Unfortunately, you"}
+            </Text>
+            <Text style={[stylesWithTheme.statusMainText, !isWinner && { color: theme.colors.red }]}>
+              {isWinner ? "won!" : "lost :("}
+            </Text>
+          </View>
+          <View>
+            <Text style={stylesWithTheme.scoreText}>Your score is:</Text>
+            <Text style={stylesWithTheme.scoreValue}>20</Text>
+          </View>
+        </>
+      )}
+
       <VerticalLayout style={stylesWithTheme.footer}>
         <PrimaryButton title={gameNumber === 3 || !isWinner ? "See total score" : "Got it"} onPress={onPress} />
       </VerticalLayout>
