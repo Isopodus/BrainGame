@@ -66,6 +66,6 @@ export const styles = ({ sizes, colors, fonts }) => ({
     color: colors.blue,
   },
   margin: {
-    height: sizes.fullWidth * 0.65,
+    height: sizes.fullWidth * 0.6,
   },
 });

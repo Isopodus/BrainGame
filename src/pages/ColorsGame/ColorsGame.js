@@ -1,12 +1,18 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { View, Text, TouchableHighlight, Vibration } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { View, Text, TouchableHighlight, Vibration, ScrollView } from "react-native";
 import { colorsGame } from "../../../constants";
 import { useGameTimer } from "../../hooks/useGameTimer";
 import { PageLayout } from "../../library/Layouts/PageLayout";
 import { styles } from "./ColorsGame.styles";
 import Orientation from "react-native-orientation";
+import { useStylesWithTheme } from "../../hooks/useStylesWithTheme";
+import { Header } from "../../library/Molecules/Header";
+import { Animation } from "../../library/Atoms/Animations";
+import { RowLayout } from "../../library/Layouts/RowLayout";
 
 export const ColorsGame = () => {
+  const [stylesWithTheme, theme] = useStylesWithTheme(styles);
+
   const config = colorsGame[0]; // Idx 0 defines level 1 of 3
   const totalItemsCount = config.SQUARE_SIZE * config.SQUARE_SIZE;
 
@@ -101,31 +107,40 @@ export const ColorsGame = () => {
 
   return (
     <PageLayout>
-      <Text style={styles.timerText}>{timeLeft < 0 ? (0).toFixed(2) : (timeLeft / 1000).toFixed(2)}</Text>
-      <View style={styles.container}>
-        <View style={{ ...styles.validColor, backgroundColor: rgbToString(validColor) }}></View>
-        <Text style={styles.colorsLeft}>Colors left: {colorsLeft}</Text>
-        <Text style={styles.mistakesText}>Mistakes: {mistakesCount}</Text>
-        <View style={styles.gridContainer}>
-          {randomColors.length > 0 &&
-            range.map((_, rowIdx) => (
-              <View key={rowIdx} style={styles.row}>
-                {range.map((_, colIdx) => {
-                  const colorIdx = colIdx + config.SQUARE_SIZE * rowIdx;
-                  const color = rgbToString(randomColors[colorIdx]);
-                  return (
-                    <TouchableHighlight
-                      key={colIdx}
-                      style={styles.cell}
-                      activeOpacity={0.7}
-                      onPress={() => onCellPress(color)}>
-                      <View style={{ ...styles.innerCell, backgroundColor: color }} />
-                    </TouchableHighlight>
-                  );
-                })}
-              </View>
-            ))}
+      <Header rounded>
+        <Text style={stylesWithTheme.title}>Colors palEtte</Text>
+        <View style={stylesWithTheme.animation}>
+          <Animation name={"clock"} play={isGameStarted} />
         </View>
+        <Text style={[stylesWithTheme.time, (timeLeft / 1000).toFixed(2) < 5 && { color: theme.colors.red }]}>
+          {timeLeft < 0 ? (0).toFixed(2) : (timeLeft / 1000).toFixed(2)}
+        </Text>
+      </Header>
+      <Text style={stylesWithTheme.mistakes}>Mistakes: {mistakesCount}</Text>
+      <View style={stylesWithTheme.validColorContainer}>
+        <View style={{ ...stylesWithTheme.validColor, backgroundColor: rgbToString(validColor) }} />
+      </View>
+
+      <View style={stylesWithTheme.gridContainer}>
+        {randomColors.length > 0 &&
+          range.map((_, rowIdx) => (
+            <RowLayout key={rowIdx}>
+              {range.map((_, colIdx) => {
+                const colorIdx = colIdx + config.SQUARE_SIZE * rowIdx;
+                const color = rgbToString(randomColors[colorIdx]);
+                return (
+                  <TouchableHighlight
+                    key={colIdx}
+                    style={stylesWithTheme.cell}
+                    activeOpacity={0.7}
+                    onPress={() => onCellPress(color)}
+                  >
+                    <View style={{ ...stylesWithTheme.innerCell, backgroundColor: color }} />
+                  </TouchableHighlight>
+                );
+              })}
+            </RowLayout>
+          ))}
       </View>
     </PageLayout>
   );
