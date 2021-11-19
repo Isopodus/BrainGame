@@ -70,11 +70,11 @@ export const drawGame = [
   },
   {
     GAME_TIME_MS: 30000,
-    IMAGES: ["S", "8", "teardrop", "P", "U", "rectangle", "6"],
+    IMAGES: ["S", "8", "teardrop", "P", "U", "rectangle", "voltage"],
   },
   {
     GAME_TIME_MS: 60000,
-    IMAGES: ["star", "heart", "teardrop", "N", "G", "triangle", "8"],
+    IMAGES: ["star", "heart", "voltage", "N", "G", "triangle", "8"],
   },
 ];
 

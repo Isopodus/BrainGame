@@ -47,7 +47,6 @@ export const DrawGame = ({ navigation, route }) => {
             api.compareImages({ originalImage: orig1, drawnImage: outputImages[0] }, token).then(data1 => {
               api.compareImages({ originalImage: orig2, drawnImage: outputImages[1] }, token).then(data2 => {
                 const avgDistance = (data1.data.distance + data2.data.distance) / 2;
-                console.log(avgDistance);
                 const looser = () => {
                   api.closeSession({ score: countPoints(100, avgDistance) }, token).then(data => {
                     navigation.navigate("Home", { newSession: data.data });

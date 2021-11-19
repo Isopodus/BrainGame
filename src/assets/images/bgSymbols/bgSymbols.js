@@ -14,4 +14,5 @@ export const bgSymbols = {
   teardrop: require("./teardrop.png"),
   triangle: require("./triangle.png"),
   U: require("./U.png"),
+  voltage: require("./voltage.png"),
 };
