@@ -7,17 +7,19 @@ import { TableGame } from "../pages/TableGame/TableGame";
 import { DrawGame } from "../pages/DrawGame/DrawGame";
 import { ColorsGame } from "../pages/ColorsGame/ColorsGame";
 import { Rating } from "../pages/Rating/Rating";
+import { Splash } from "../pages/Splash/Splash";
 
 const Stack = createStackNavigator();
 
 export const StackContainer = () => {
   return (
     <Stack.Navigator
-      initialRouteName={"Preview"}
+      initialRouteName={"Splash"}
       screenOptions={{
         headerShown: false,
       }}
     >
+      <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="Preview" component={Preview} />
       <Stack.Screen name="DrawerContainer" component={DrawerContainer} />
       <Stack.Screen name="Auth" component={Auth} />
