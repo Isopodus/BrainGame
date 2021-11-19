@@ -2,6 +2,7 @@ export const styles = ({ colors, sizes, fonts }) => ({
   container: {
     flex: 1,
     alignItems: "stretch",
+    marginTop: "10%",
   },
   title: {
     marginBottom: sizes.scale(15),
@@ -18,7 +19,7 @@ export const styles = ({ colors, sizes, fonts }) => ({
     textAlign: "center",
   },
   subtitle: {
-    marginTop: sizes.scale(60),
+    marginTop: sizes.scale(20),
     marginBottom: sizes.scale(35),
 
     fontFamily: fonts.secondary,

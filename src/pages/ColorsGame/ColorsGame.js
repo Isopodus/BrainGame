@@ -9,11 +9,15 @@ import { useStylesWithTheme } from "../../hooks/useStylesWithTheme";
 import { Header } from "../../library/Molecules/Header";
 import { Animation } from "../../library/Atoms/Animations";
 import { RowLayout } from "../../library/Layouts/RowLayout";
+import { useSelector } from "react-redux";
+import { api } from "../../requests/api";
 
-export const ColorsGame = () => {
+export const ColorsGame = ({ navigation, route }) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
 
-  const config = colorsGame[0]; // Idx 0 defines level 1 of 3
+  const token = useSelector(state => state.token);
+
+  const config = colorsGame[route.params.difficulty]; // Idx 0 defines level 1 of 3
   const totalItemsCount = config.SQUARE_SIZE * config.SQUARE_SIZE;
 
   const [validColor, setValidColor] = useState([0, 0, 0]);
@@ -46,18 +50,22 @@ export const ColorsGame = () => {
   });
 
   const countPoints = useCallback(multiplier => {
-    return ((timeLeft / config.GAME_TIME_MS) * multiplier - mistakesCount * 100 + 300).toFixed(0);
+    return (timeLeft / config.GAME_TIME_MS) * multiplier - mistakesCount * 100 + 300;
   });
 
   const handleLoose = useCallback(() => {
     Vibration.vibrate(1000);
-    console.log(countPoints(100), timeLeft);
+    api.closeSession({ score: countPoints(100) }, token).then(data => {
+      navigation.navigate("Home");
+    });
     // ------------------------------------------------------- TODO: Do the post-game LOOSE message
   });
 
   const handleWin = useCallback(() => {
     Vibration.vibrate([0, 50, 50, 50, 50, 200]);
-    console.log(countPoints(1000), timeLeft);
+    api.updateSession({ score: countPoints(1000) }, token).then(data => {
+      navigation.navigate("Home", { newSession: data.data });
+    });
     // ------------------------------------------------------- TODO: Do the post-game WIN message
   });
 

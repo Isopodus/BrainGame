@@ -17,7 +17,7 @@ export function useGameTimer(winCallback, looseCallback, gameTimeMs) {
         const currentTime = new Date().valueOf();
         const newTimeLeft = startTime + gameTimeMs - currentTime;
         setTimeLeft(newTimeLeft);
-      }, 75);
+      }, 275);
     }
 
     return () => clearInterval(interval.current);

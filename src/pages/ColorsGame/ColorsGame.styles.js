@@ -26,7 +26,6 @@ export const styles = ({ sizes, colors, fonts }) => ({
     textAlign: "center",
   },
   gridContainer: {
-    flex: 1,
     justifyContent: "center",
     width: sizes.fullWidth,
     paddingTop: sizes.scale(10),

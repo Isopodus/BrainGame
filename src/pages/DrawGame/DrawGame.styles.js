@@ -9,8 +9,8 @@ export const styles = {
     paddingHorizontal: scale(30),
   },
   imageBox: {
-    width: scale(600),
-    height: scale(600),
+    width: scale(200),
+    height: scale(200),
   },
   drawBlocker: {
     position: "absolute",

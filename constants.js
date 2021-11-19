@@ -1,3 +1,5 @@
+export const GAMES_ENUM = ["FirstGame", "SecondGame", "ThirdGame"];
+
 export const GAMES_DESCIPTIONS = [
   {
     setting:

@@ -5,12 +5,16 @@ import { useGameTimer } from "../../hooks/useGameTimer";
 import { PageLayout } from "../../library/Layouts/PageLayout";
 import { styles } from "./DrawGame.styles";
 import { colors } from "../../ui/colors";
+import { useSelector } from "react-redux";
+import { api } from "../../requests/api";
 
 import SignatureCapture from "react-native-signature-capture";
 import Orientation from "react-native-orientation";
 
-export const DrawGame = () => {
-  const config = drawGame[0]; // Idx 0 defines level 1 of 3
+export const DrawGame = ({ navigation, route }) => {
+  const config = drawGame[route.params.difficulty]; // Idx 0 defines level 1 of 3
+
+  const token = useSelector(state => state.token);
 
   const [imagesTouched, setImagesTouched] = useState(0);
   const [checkDoubleTouch, setCheckDoubleTouch] = useState(false);
@@ -20,18 +24,24 @@ export const DrawGame = () => {
   const image2ref = useRef();
 
   const countPoints = useCallback((multiplier, imagesDistance) => {
-    return ((timeLeft / config.GAME_TIME_MS) * multiplier - imagesDistance * 300 + 300).toFixed(0);
+    return (timeLeft / config.GAME_TIME_MS) * multiplier - imagesDistance * 300 + 300;
   });
 
   const handleLoose = useCallback(() => {
     Vibration.vibrate(1000);
-    console.log(countPoints(100, 0.5), timeLeft);
+    api.closeSession({ score: countPoints(100, 0.5) }, token).then(data => {
+      navigation.navigate("Home", { newSession: null });
+      Orientation.lockToPortrait();
+    });
     // ------------------------------------------------------- TODO: Do the post-game LOOSE message
   });
 
   const handleWin = useCallback(() => {
     Vibration.vibrate([0, 50, 50, 50, 50, 200]);
-    console.log(countPoints(1000, 0), timeLeft);
+    api.updateSession({ score: countPoints(1000, 0) }, token).then(data => {
+      navigation.navigate("Home", { newSession: data.data });
+      Orientation.lockToPortrait();
+    });
     // ------------------------------------------------------- TODO: Do the post-game WIN message
   });
 

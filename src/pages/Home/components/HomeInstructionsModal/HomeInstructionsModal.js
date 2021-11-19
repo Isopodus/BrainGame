@@ -28,7 +28,7 @@ export const HomeInstructionsModal = ({ open, startGame, resetGame, toggleModal,
 
   if (disabled || completed) {
     return (
-      <Popup title={`Game ${gameNumber}`} open={open}>
+      <Popup title={`Game ${gameNumber + 1}`} open={open}>
         <View>
           {/* <Figure /> */}
           <Text style={stylesWithTheme.informalText}>

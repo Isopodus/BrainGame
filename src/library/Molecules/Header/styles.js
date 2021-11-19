@@ -48,7 +48,7 @@ export const styles = ({ sizes, colors, fonts }) => ({
     paddingRight: "0.5%",
 
     fontFamily: fonts.tematic,
-    fontSize: sizes.scale(45),
+    fontSize: sizes.scale(40),
     color: colors.white,
 
     zIndex: 2,

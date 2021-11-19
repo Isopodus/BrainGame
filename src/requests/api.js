@@ -25,14 +25,17 @@ export const api = {
   // difficulty => session data
   newSession: (body, token) => axios.post(`${url}/api/sessions`, body, getOptions(token)),
 
-  // => session data
-  closeSession: token => axios.post(`${url}/api/sessions/last/close`, {}, getOptions(token)),
+  // score => session data
+  updateSession: (body, token) => axios.post(`${url}/api/sessions/last/complete`, body, getOptions(token)),
+
+  // score => session data
+  closeSession: (body, token) => axios.post(`${url}/api/sessions/last/close`, body, getOptions(token)),
 
   // => session data
   cancelSession: token => axios.post(`${url}/api/sessions/last/cancel`, {}, getOptions(token)),
 
   // => { placeN: {username, email, totalScore, passedAllGames, number} }
-  getLeaderboard: token => axios.post(`${url}/api/leaderboard`, {}, getOptions(token)),
+  getLeaderboard: token => axios.get(`${url}/api/leaderboard`, getOptions(token)),
 
   // originalImage, drawnImage => distance
   compareImages: (body, token) => axios.post(`${url}/api/leaderboard`, body, getOptions(token)),

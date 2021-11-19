@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from "react";
+import Orientation from "react-native-orientation";
 import { useDispatch, useSelector } from "react-redux";
 import { ScrollView, View } from "react-native";
 import { PageLayout } from "../../library/Layouts/PageLayout";
@@ -8,24 +9,36 @@ import { useStylesWithTheme } from "../../hooks/useStylesWithTheme";
 import { styles } from "./Home.styles";
 import { setAction, cleanAction } from "../../../store";
 import { api } from "../../requests/api";
+import { GAMES_ENUM } from "../../../constants";
 
-export const Home = ({ navigation }) => {
+export const Home = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [stylesWithTheme] = useStylesWithTheme(styles);
 
   const token = useSelector(state => state.token);
   const session = useSelector(state => state.session);
 
-  const loadSession = useCallback(() => {
-    api.lastSession(token).then(data => {
-      const lastSession = data.data;
-      if (lastSession.sessionStatus === 0) {
-        dispatch(setAction("session", lastSession));
-      } else {
-        dispatch(cleanAction("session"));
-      }
-    });
+  const resetGameSession = useCallback(() => {
+    api.cancelSession(token).then(data => loadSession(data.data));
   }, [token]);
+
+  const loadSession = useCallback(
+    mySession => {
+      if (mySession?.sessionDifficulty) {
+        dispatch(setAction("session", mySession));
+      } else {
+        api.lastSession(token).then(data => {
+          const lastSession = data.data;
+          if (lastSession.sessionStatus === 0) {
+            dispatch(setAction("session", lastSession));
+          } else {
+            dispatch(cleanAction("session"));
+          }
+        });
+      }
+    },
+    [token],
+  );
 
   const startNewSession = useCallback(difficulty => {
     return api.newSession({ difficulty }, token).then(data => {
@@ -38,24 +51,32 @@ export const Home = ({ navigation }) => {
   const startGame = useCallback((difficulty, gameNumber) => {
     if (session.sessionStatus === null) {
       // Create new session if needed
-      startNewSession(difficulty).then(session => {
-        console.log("new session, game ", gameNumber);
+      startNewSession(difficulty).then(newSession => {
+        console.log("new session", gameNumber, newSession);
+        navigation.navigate(GAMES_ENUM[gameNumber], { difficulty });
       });
     } else {
       // Continue with the previous session
-      console.log("old session, game ", gameNumber);
+      console.log("old session", gameNumber, session);
+      navigation.navigate(GAMES_ENUM[gameNumber], { difficulty: session.sessionDifficulty });
     }
   });
 
-  const resetGameSession = useCallback(() => {
-    api.cancelSession(token).then(loadSession);
-  }, [token]);
+  useEffect(() => {
+    if (route.params?.newSession) {
+      console.log("upd", route.params.newSession);
+      loadSession(route.params.newSession);
+    }
+  }, [route?.params?.newSession]);
 
-  useEffect(loadSession);
+  useEffect(() => {
+    Orientation.lockToPortrait();
+    loadSession();
+  }, []);
 
   return (
     <PageLayout>
-      <Header title={"Brain game"} navigation={navigation} />
+      <Header title={"Brain\n    game"} navigation={navigation} />
 
       <ScrollView>
         <HomeGameCard
@@ -70,7 +91,7 @@ export const Home = ({ navigation }) => {
           title={<>SEcond{"\n"}game</>}
           gameNumber={1}
           reverse
-          disabled={!session.sessionStage}
+          disabled={session.sessionStage < 1}
           completed={session.sessionStage > 1}
           onApplyDifficulty={(difficulty, gameNumber) => startGame(difficulty, gameNumber)}
           onResetGame={resetGameSession}
@@ -78,7 +99,7 @@ export const Home = ({ navigation }) => {
         <HomeGameCard
           title={`Third${"\n"}game`}
           gameNumber={2}
-          disabled
+          disabled={session.sessionStage <= 1}
           completed={session.sessionStatus > 0}
           onApplyDifficulty={(difficulty, gameNumber) => startGame(difficulty, gameNumber)}
           onResetGame={resetGameSession}

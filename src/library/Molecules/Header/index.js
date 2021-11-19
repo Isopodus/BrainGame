@@ -7,7 +7,7 @@ import { RowLayout } from "../../Layouts/RowLayout";
 import { Icon } from "../../Atoms/Icons";
 import { VerticalLayout } from "../../Layouts/VerticalLayout";
 
-export const Header = ({ title, subtitle, rounded = false, children, navigation }) => {
+export const Header = ({ title, titleStyle, subtitle, rounded = false, children, navigation }) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
   if (rounded) {
     return (
@@ -43,7 +43,7 @@ export const Header = ({ title, subtitle, rounded = false, children, navigation 
             />
           </View>
           <RowLayout>
-            <Text style={stylesWithTheme.title}>{title}</Text>
+            <Text style={[stylesWithTheme.title, titleStyle]}>{title}</Text>
           </RowLayout>
         </LinearGradient>
       </LinearGradient>

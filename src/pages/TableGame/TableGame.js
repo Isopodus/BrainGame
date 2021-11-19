@@ -8,11 +8,15 @@ import Orientation from "react-native-orientation";
 import { Animation } from "../../library/Atoms/Animations";
 import { useStylesWithTheme } from "../../hooks/useStylesWithTheme";
 import { Header } from "../../library/Molecules/Header";
+import { useSelector } from "react-redux";
+import { api } from "../../requests/api";
 
-export const TableGame = ({ difficulty = 1 }) => {
+export const TableGame = ({ navigation, route }) => {
   const [stylesWithTheme, theme] = useStylesWithTheme(styles);
 
-  const config = tableGame[difficulty]; // Idx 0 defines level 1 of 3
+  const token = useSelector(state => state.token);
+
+  const config = tableGame[route.params.difficulty]; // Idx 0 defines level 1 of 3
   const totalItemsCount = config.SQUARE_SIZE * config.SQUARE_SIZE;
 
   const [sequence, setSequence] = useState([]);
@@ -41,18 +45,22 @@ export const TableGame = ({ difficulty = 1 }) => {
   });
 
   const countPoints = useCallback(multiplier => {
-    return ((timeLeft / config.GAME_TIME_MS) * multiplier - mistakesCount * 100 + 300).toFixed(0);
+    return (timeLeft / config.GAME_TIME_MS) * multiplier - mistakesCount * 100 + 300;
   });
 
   const handleLoose = useCallback(() => {
-    Vibration.vibrate(100);
-    console.log(countPoints(100), timeLeft);
+    Vibration.vibrate(1000);
+    api.closeSession({ score: countPoints(100) }, token).then(data => {
+      navigation.navigate("Home");
+    });
     // ------------------------------------------------------- TODO: Do the post-game LOOSE message
   });
 
   const handleWin = useCallback(() => {
     Vibration.vibrate([0, 50, 50, 50, 50, 200]);
-    console.log(countPoints(1000), timeLeft);
+    api.updateSession({ score: countPoints(1000) }, token).then(data => {
+      navigation.navigate("Home", { newSession: data.data });
+    });
     // ------------------------------------------------------- TODO: Do the post-game WIN message
   });
 
